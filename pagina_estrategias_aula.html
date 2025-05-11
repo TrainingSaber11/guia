@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 3: Estrategias de Aula y Talleres por Área - Taller Docente</title>
+    <!-- Barlow Condensed de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === CSS EMBEBIDO - MISMOS ESTILOS GLOBALES === */
+        :root {
+            --brand-dark-blue: #17334B; --brand-teal: #54BBAB; --brand-orange: #F39325; --brand-light-blue: #11678B;
+            --neutral-white: #ffffff; --neutral-gray-light: #f8f9fa; --neutral-gray-dark: #333333; --neutral-gray-medium: #e9ecef;
+            --primary-color: var(--brand-teal); --secondary-color: var(--brand-orange); --header-bg: var(--brand-dark-blue);
+            --footer-bg: var(--brand-dark-blue); --light-bg: var(--neutral-white); --dark-text: var(--neutral-gray-dark);
+            --light-text: var(--neutral-white); --link-color: var(--brand-light-blue);
+            --button-bg: var(--secondary-color); --button-text: var(--light-text); --button-hover-bg: var(--primary-color);
+            --button-hover-text: var(--light-text); --placeholder-bg: var(--neutral-gray-medium); --placeholder-border: #ced4da;
+            --code-bg: #fef0e6; --code-border: #ffe5c4; --code-text: #D94D15;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+        body { font-family: 'Barlow Condensed', sans-serif; line-height: 1.7; color: var(--dark-text); background-color: var(--neutral-gray-light); font-weight: 400; }
+        
+        .page-header { background-color: var(--header-bg); color: var(--light-text); padding: 0.8rem 1.5rem; position: sticky; top: 0; z-index: 1000; width: 100%; box-shadow: 0 3px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: space-between; }
+        .header-logo-placeholder { width: 150px; height: 45px; background-color: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 300; border-radius: 4px; color: rgba(255,255,255,0.7); }
+        .page-header nav ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: flex-end; margin: 0; padding: 0; }
+        .page-header nav ul li { margin: 0.2rem 0.4rem; }
+        .page-header nav ul li a { color: var(--light-text); text-decoration: none; font-weight: 600; padding: 0.6rem 1rem; border-radius: 4px; transition: background-color 0.3s ease, color 0.3s ease; font-size: 0.95rem; white-space: nowrap;}
+        .page-header nav ul li a:hover, .page-header nav ul li a:focus { background-color: var(--button-bg); color: var(--button-text); outline: none; }
+        .page-header .nav-item.back-to-index a { background-color: var(--secondary-color); color: var(--light-text); font-weight: 700; }
+        .page-header .nav-item.back-to-index a:hover { background-color: var(--primary-color); }
+
+        .page-main-content { max-width: 1000px; margin: 35px auto; padding: 35px; background-color: var(--light-bg); box-shadow: 0 5px 25px rgba(0,0,0,0.1); border-radius: 12px; }
+        .page-title { color: var(--brand-dark-blue); margin-bottom: 35px; font-size: 2.6rem; text-align: center; font-weight: 700; padding-bottom: 15px; border-bottom: 3px solid var(--primary-color); }
+        .page-main-content h3 { color: var(--secondary-color); margin-top: 40px; margin-bottom: 20px; font-size: 1.9rem; font-weight: 700; border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; display: inline-block; }
+        .page-main-content h4 { color: var(--brand-light-blue); margin-top: 25px; margin-bottom: 12px; font-size: 1.5rem; font-weight: 600; }
+        .page-main-content p, .page-main-content ul, .page-main-content ol { margin-bottom: 20px; font-size: 1.15rem; color: var(--dark-text); }
+        .page-main-content ul, .page-main-content ol { padding-left: 40px; } .page-main-content li { margin-bottom: 12px; }
+        .page-main-content strong { font-weight: 700; color: var(--brand-dark-blue); }
+        .page-main-content .emphasis { background-color: var(--code-bg); padding: 3px 7px; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif; color: var(--code-text); border: 1px solid var(--code-border); font-weight: 600; }
+        .image-placeholder-page { background-color: var(--placeholder-bg); border: 2px dashed var(--placeholder-border); padding: 30px; margin: 0 auto 35px auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; min-height: 200px; max-width: 750px; text-align: center; color: #6c757d; font-style: italic; font-weight: 300;}
+        
+        .area-workshop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+        .area-card {
+            background-color: var(--neutral-gray-medium);
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--placeholder-border);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .area-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .area-card .icon-placeholder { /* Placeholder para icono de área */
+            width: 60px; height: 60px; background-color: var(--primary-color); color: var(--light-text);
+            border-radius: 50%; margin: 0 auto 20px auto; display:flex; align-items:center; justify-content:center; font-size: 2rem; font-weight: 600;
+        }
+        .area-card h4 {
+            font-size: 1.6rem; /* Título de la tarjeta de área */
+            color: var(--brand-dark-blue);
+            margin-bottom: 15px;
+            font-weight: 600;
+            border-bottom: none; /* Sin borde para estos h4 */
+        }
+        .area-card p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .area-card .btn-access-workshop {
+            display: inline-block;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            padding: 10px 22px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+        .area-card .btn-access-workshop:hover {
+            background-color: var(--button-hover-bg);
+            color: var(--button-hover-text);
+        }
+
+        .nav-buttons-container { display: flex; justify-content: space-between; margin-top: 40px; }
+        .nav-button { display: inline-block; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 1.1rem; transition: all 0.3s ease; }
+        .prev-button { background-color: var(--neutral-gray-medium); color: var(--dark-text); border: 1px solid var(--placeholder-border); }
+        .prev-button:hover { background-color: #d3d9df; }
+        .next-button { background-color: var(--button-bg); color: var(--button-text); }
+        .next-button:hover { background-color: var(--button-hover-bg); color: var(--button-hover-text); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+
+        #main-footer { background-color: var(--footer-bg); color: #bdc3c7; text-align: center; padding: 25px 15px; margin-top: 40px; font-size: 0.9rem; }
+        #main-footer p { margin-bottom: 8px; font-weight: 300; } #main-footer strong { font-weight: 600; color: var(--light-text); }
+        .footer-logo-placeholder { width: 120px; height: 40px; background-color: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.4); margin: 10px auto 5px auto; display:flex; align-items:center; justify-content:center; font-size:0.7rem; border-radius: 4px;}
+
+        @media (max-width: 768px) { /* Mismos media queries que antes */ }
+        @media (max-width: 600px) {
+            .area-workshop-grid { grid-template-columns: 1fr; /* Una columna en móvil */ }
+        }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="header-logo-placeholder">
+            (LOGO Grupo Edúcate)
+        </div>
+        <nav>
+            <ul>
+                <li class="nav-item back-to-index"><a href="index.html">← Inicio Taller</a></li>
+                <li class="nav-item"><a href="contexto_saber11.html">Contexto y DCE</a></li>
+                <li class="nav-item"><a href="ruta_maestra.html">La Ruta Maestra</a></li>
+                <li class="nav-item"><a href="la_meta.html">La Meta</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page-main-content">
+        <h2 class="page-title">Módulo 3: Talleres Prácticos por Área y Estrategias de Aula</h2>
+
+        <div class="image-placeholder-page">
+            <p>(Imagen: Docentes colaborando, pizarra con ideas, o herramientas pedagógicas)</p>
+        </div>
+
+        <h3>A. Introducción a los Talleres Prácticos por Área</h3>
+        <p>En los módulos anteriores, hemos explorado la estructura de la prueba Saber 11, el enfoque del Diseño Centrado en Evidencias (DCE) y la Ruta Metodológica General de 4 Fases propuesta por Grupo Edúcate Colombia. Ahora, es el momento de llevar esta comprensión a la práctica específica de cada área evaluada.</p>
+        <p>El objetivo de esta sección es que ustedes, como docentes, se apropien de las Rutas Metodológicas específicas para cada área y, a través de un proceso de modelado, práctica guiada y práctica independiente (simulando lo que harían con sus estudiantes), desarrollen la habilidad de enseñar estos procesos de pensamiento crítico. Los ejemplos utilizados son preguntas reales del ICFES para asegurar la autenticidad y relevancia.</p>
+        
+        <h4>Seleccione el Área para Iniciar el Taller Práctico:</h4>
+        <div class="area-workshop-grid">
+            <article class="area-card">
+                <div class="icon-placeholder">📖</div>
+                <h4>Lectura Crítica</h4>
+                <p>Dominando la Ruta del Lector Crítico: Inmersión, Conexión, Evaluación y Justificación.</p>
+                <a href="area_lectura_critica.html" class="btn-access-workshop">Acceder al Taller LC</a>
+            </article>
+
+            <article class="area-card">
+                <div class="icon-placeholder">📊</div>
+                <h4>Matemáticas</h4>
+                <p>Aplicando la Ruta del Razonamiento Matemático: Deconstrucción, Estrategia, Ejecución y Validación.</p>
+                <a href="area_matematicas.html" class="btn-access-workshop">Acceder al Taller Mat</a>
+            </article>
+
+            <article class="area-card">
+                <div class="icon-placeholder">🌍</div>
+                <h4>Sociales y Ciudadanas</h4>
+                <p>Usando la Ruta Clave para Sociales: Decodificación, Conexión, Ejecución/Evaluación y Validación.</p>
+                <a href="area_sociales.html" class="btn-access-workshop">Acceder al Taller Soc</a>
+            </article>
+
+            <article class="area-card">
+                <div class="icon-placeholder">🔬</div>
+                <h4>Ciencias Naturales</h4>
+                <p>Siguiendo la Ruta del Explorador Científico: Decodificación, Conexión, Análisis/Evaluación y Validación.</p>
+                <a href="area_naturales.html" class="btn-access-workshop">Acceder al Taller C.Nat</a>
+            </article>
+            
+            <article class="area-card" >
+                <div class="icon-placeholder">💬</div>
+                <h4>Inglés</h4>
+                <p>Estrategias específicas para cada una de las 7 partes de la prueba de Inglés.</p>
+                <a href="area_ingles.html" class="btn-access-workshop">Acceder a Estrategias Inglés</a>
+            </article>
+        </div>
+
+        <hr style="margin: 45px 0 35px 0; border-width: 2px; border-color: var(--primary-color); border-style: dashed;">
+
+        <h3>B. Implementación General de las Rutas en el Aula</h3>
+        <p>Más allá de los talleres específicos por área, es crucial considerar cómo integrar la enseñanza de estas Rutas Metodológicas de manera transversal y continua en la práctica pedagógica diaria. El objetivo no es solo preparar para un examen, sino fomentar habilidades de pensamiento crítico duraderas.</p>
+        
+        <h4>Estrategias Clave para la Implementación Docente:</h4>
+        <ul>
+            <li><strong>Modelado Constante y Explícito:</strong> Los docentes deben usar la ruta correspondiente al resolver ejemplos de todas las áreas frente a los estudiantes, verbalizando su proceso de pensamiento en cada fase. Mostrar "cómo se piensa" es tan importante como llegar a la respuesta correcta.</li>
+            <li><strong>Práctica Variada y Progresiva:</strong>
+                <ul>
+                    <li>Iniciar con <span class="emphasis">práctica guiada</span>, donde los estudiantes aplican las fases con apoyo del docente (usando preguntas orientadoras, prompts, trabajo colaborativo).</li>
+                    <li>Avanzar hacia la <span class="emphasis">práctica independiente</span>, donde los estudiantes internalizan y aplican la ruta de forma autónoma en ejercicios y simulacros.</li>
+                    <li>Utilizar <span class="emphasis">diversos tipos de ítems y contextos</span> para asegurar la transferibilidad de la ruta.</li>
+                </ul>
+            </li>
+            <li><strong>Enfoque en el Proceso, No Solo en el Resultado:</strong> La retroalimentación debe centrarse en CÓMO el estudiante aplicó (o no aplicó) las fases de la ruta, identificando en qué parte del proceso pudo haber cometido errores, y no solo en si la respuesta final fue correcta o incorrecta.</li>
+            <li><strong>Metacognición y Reflexión:</strong> Promover que los estudiantes reflexionen sobre su propio proceso de aprendizaje y resolución:
+                <ul>
+                    <li><em>"¿Qué fase de esta ruta me resulta más difícil en [Área X]?"</em></li>
+                    <li><em>"¿En qué tipo de preguntas o contextos me equivoco más al aplicar la ruta?"</em></li>
+                    <li><em>"¿Qué estrategias específicas dentro de cada fase me funcionan mejor?"</em></li>
+                </ul>
+            </li>
+            <li><strong>Lenguaje Común y Consistente:</strong> Utilizar consistentemente los nombres de las fases de la Ruta ("Decodificación", "Conexión y Estrategia", etc.) en todas las áreas y por todos los docentes. Esto crea un marco de referencia compartido y facilita la transferencia de habilidades entre asignaturas.</li>
+            <li><strong>Retroalimentación Orientada al Proceso (Usando las POs):</strong> Al revisar errores, guiar al estudiante con Preguntas Orientadoras para que identifique por sí mismo en qué fase de la ruta pudo haber fallado (Ej: "¿Entendiste bien el fenómeno/pregunta (Fase 1)?", "¿Recordaste/aplicaste el concepto correcto (Fase 2)?", "¿Analizaste todas las opciones (Fase 3)?", "¿Caíste en un distractor común?").</li>
+            <li><strong>Adaptabilidad de la Ruta:</strong> Mostrar cómo la esencia de las 4 fases se mantiene para diferentes tipos de contextos (textos continuos, discontinuos, problemas, experimentos), aunque el énfasis en ciertas acciones dentro de cada fase pueda variar ligeramente.</li>
+        </ul>
+        <p>Al integrar estas estrategias, se fomenta una <span class="emphasis">cultura de pensamiento estratégico y analítico</span> que beneficiará a los estudiantes mucho más allá de la prueba Saber 11.</p>
+
+        <div class="nav-buttons-container">
+            <a href="pagina_ruta_modelado.html" class="nav-button prev-button">← Módulo Anterior</a>
+            <a href="la_meta.html" class="nav-button next-button">Siguiente: La Meta →</a>
+        </div>
+    </main>
+
+    <footer id="main-footer">
+        <div class="footer-logo-placeholder">
+            (LOGO Grupo Edúcate)
+        </div>
+        <p><strong>Autor:</strong> Marlon Galvis Villa - Director de Pedagogía, Grupo Edúcate Colombia.</p>
+        <p>Módulo 3 del Taller Docente Saber 11.</p>
+    </footer>
+</body>
+</html>

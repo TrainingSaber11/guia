@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 1: Contexto Saber 11 y DCE - Taller Docente</title>
+    <!-- Barlow Condensed de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === CSS EMBEBIDO - ESTILOS GLOBALES (Consistente con index.html) === */
+        :root {
+            --brand-dark-blue: #17334B; --brand-teal: #54BBAB; --brand-orange: #F39325; --brand-light-blue: #11678B;
+            --neutral-white: #ffffff; --neutral-gray-light: #f8f9fa; --neutral-gray-dark: #333333; --neutral-gray-medium: #e9ecef;
+            --primary-color: var(--brand-teal); --secondary-color: var(--brand-orange); --header-bg: var(--brand-dark-blue);
+            --footer-bg: var(--brand-dark-blue); --light-bg: var(--neutral-white); --dark-text: var(--neutral-gray-dark);
+            --light-text: var(--neutral-white); --link-color: var(--brand-light-blue);
+            --button-bg: var(--secondary-color); --button-text: var(--light-text); --button-hover-bg: var(--primary-color);
+            --button-hover-text: var(--light-text); --placeholder-bg: var(--neutral-gray-medium); --placeholder-border: #ced4da;
+            --code-bg: #fef0e6; /* Naranja muy claro para código/énfasis */
+            --code-border: #ffe5c4;
+            --code-text: #D94D15; /* Naranja oscuro para texto en code */
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+        body { font-family: 'Barlow Condensed', sans-serif; line-height: 1.7; color: var(--dark-text); background-color: var(--neutral-gray-light); font-weight: 400; }
+        
+        /* Header de Página Interna */
+        .page-header {
+            background-color: var(--header-bg); color: var(--light-text); padding: 0.8rem 1.5rem; position: sticky; top: 0; z-index: 1000; width: 100%; box-shadow: 0 3px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: space-between;
+        }
+        .header-logo-placeholder {
+            width: 150px; height: 45px; background-color: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 300; border-radius: 4px; color: rgba(255,255,255,0.7);
+        }
+        .page-header nav ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: flex-end; margin: 0; padding: 0; }
+        .page-header nav ul li { margin: 0.2rem 0.4rem; }
+        .page-header nav ul li a { color: var(--light-text); text-decoration: none; font-weight: 600; padding: 0.6rem 1rem; border-radius: 4px; transition: background-color 0.3s ease, color 0.3s ease; font-size: 0.95rem; white-space: nowrap;}
+        .page-header nav ul li a:hover, .page-header nav ul li a:focus { background-color: var(--button-bg); color: var(--button-text); outline: none; }
+        .page-header .nav-item.back-to-index a { background-color: var(--secondary-color); color: var(--light-text); font-weight: 700; }
+        .page-header .nav-item.back-to-index a:hover { background-color: var(--primary-color); }
+
+        /* Contenido Principal de Página */
+        .page-main-content { max-width: 1000px; margin: 35px auto; padding: 35px; background-color: var(--light-bg); box-shadow: 0 5px 25px rgba(0,0,0,0.1); border-radius: 12px; }
+        .page-title { color: var(--brand-dark-blue); margin-bottom: 35px; font-size: 2.6rem; text-align: center; font-weight: 700; padding-bottom: 15px; border-bottom: 3px solid var(--primary-color); }
+        .page-main-content h3 { color: var(--secondary-color); margin-top: 40px; margin-bottom: 20px; font-size: 1.9rem; font-weight: 700; border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; display: inline-block; }
+        .page-main-content h4 { color: var(--brand-light-blue); margin-top: 30px; margin-bottom: 15px; font-size: 1.5rem; font-weight: 600; }
+        .page-main-content p, .page-main-content ul, .page-main-content ol { margin-bottom: 20px; font-size: 1.15rem; color: var(--dark-text); }
+        .page-main-content ul, .page-main-content ol { padding-left: 40px; } .page-main-content li { margin-bottom: 12px; }
+        .page-main-content strong { font-weight: 700; color: var(--brand-dark-blue); }
+        .page-main-content .emphasis { background-color: var(--code-bg); padding: 3px 7px; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif; color: var(--code-text); border: 1px solid var(--code-border); font-weight: 600; }
+        
+        /* Columnas para Estructura Examen */
+        .column-container { display: flex; flex-wrap: wrap; gap: 30px; margin: 25px 0; }
+        .column { flex: 1; min-width: 300px; background-color: #eef7f5; padding: 20px; border-radius: 10px; border: 1px solid var(--primary-color); box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
+        .column h4 { margin-top: 0; color: var(--brand-dark-blue); font-size: 1.4rem; border-bottom: 2px solid var(--brand-dark-blue); padding-bottom: 8px; margin-bottom: 18px; font-weight: 600; }
+        .column ul { padding-left: 25px; font-size: 1.05rem; } .column li { margin-bottom: 10px; }
+
+        /* Diagrama DCE */
+        .dce-diagram { text-align: center; padding: 25px; background-color: var(--neutral-gray-medium); border-radius: 10px; margin: 30px 0; border: 1px solid var(--placeholder-border); }
+        .dce-diagram p { margin-bottom: 10px; font-weight: 600; font-size: 1.2rem; color: var(--brand-dark-blue); }
+        .dce-arrow { font-size: 1.8rem; color: var(--secondary-color); margin: 5px 10px; display: block; }
+        .dce-item { background-color: var(--light-bg); padding: 10px 15px; border-radius: 6px; margin-bottom:10px; display: inline-block; border: 1px solid var(--primary-color); box-shadow: 0 1px 3px rgba(0,0,0,0.1);}
+
+        /* Placeholder de imagen para sección */
+        .section-image-placeholder {
+            background-color: var(--placeholder-bg); border: 2px dashed var(--placeholder-border); padding: 30px; margin: 0 auto 35px auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; min-height: 200px; max-width: 750px; text-align: center; color: #6c757d; font-style: italic; font-weight: 300;
+        }
+        .section-image-placeholder img { max-width: 100%; max-height: 180px; border-radius: 5px;}
+
+
+        /* Botón Siguiente Módulo */
+        .nav-buttons-container { display: flex; justify-content: space-between; margin-top: 40px; }
+        .nav-button {
+            display: inline-block; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 1.1rem; transition: all 0.3s ease;
+        }
+        .prev-button { background-color: var(--neutral-gray-medium); color: var(--dark-text); border: 1px solid var(--placeholder-border); }
+        .prev-button:hover { background-color: #d3d9df; }
+        .next-button { background-color: var(--button-bg); color: var(--button-text); }
+        .next-button:hover { background-color: var(--button-hover-bg); color: var(--button-hover-text); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+
+        /* Footer */
+        #main-footer { background-color: var(--footer-bg); color: #bdc3c7; text-align: center; padding: 25px 15px; margin-top: 40px; font-size: 0.9rem; }
+        #main-footer p { margin-bottom: 8px; font-weight: 300; } #main-footer strong { font-weight: 600; color: var(--light-text); }
+        .footer-logo-placeholder { width: 120px; height: 40px; background-color: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.4); margin: 10px auto 5px auto; display:flex; align-items:center; justify-content:center; font-size:0.7rem; border-radius: 4px;}
+
+        @media (max-width: 768px) {
+            .page-header { flex-direction: column; text-align: center; padding: 0.6rem;}
+            .header-logo-placeholder { margin: 5px auto; }
+            .page-header nav ul { margin-top: 8px; justify-content: center; width:100%;}
+            .page-header nav ul li { margin: 0.3rem; }
+            .page-header nav ul li a { font-size: 0.9rem; padding: 0.5rem 0.8rem; }
+            .page-main-content { padding: 25px; margin: 20px 15px; }
+            .page-title { font-size: 2.1rem; }
+            .page-main-content h3 { font-size: 1.6rem; }
+            .page-main-content h4 { font-size: 1.3rem; }
+            .column-container { flex-direction: column; }
+            .nav-buttons-container { flex-direction: column; gap: 15px; }
+            .nav-button { width: 100%; text-align: center;}
+        }
+         @media (max-width: 480px) {
+            .page-title { font-size: 1.8rem; }
+             .page-main-content h3 { font-size: 1.4rem; }
+             .page-main-content p, .page-main-content ul, .page-main-content ol { font-size: 1.05rem;}
+         }
+    </style>
+</head>
+<body>
+    <header class="page-header"> <!-- Renombrada la clase para especificidad -->
+        <div class="header-logo-placeholder">
+            (LOGO Grupo Edúcate)
+        </div>
+        <nav>
+            <ul>
+                <li class="nav-item back-to-index"><a href="index.html">← Volver al Inicio</a></li>
+                <li class="nav-item"><a href="ruta_maestra.html">La Ruta Maestra</a></li>
+                <li class="nav-item"><a href="estrategias_aula.html">Estrategias Aula</a></li>
+                <li class="nav-item"><a href="la_meta.html">La Meta</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page-main-content">
+        <h2 class="page-title">Módulo 1: Contexto Saber 11 y Enfoque por Competencias (DCE)</h2>
+        
+        <div class="section-image-placeholder">
+            <p>(Imagen representativa: Puede ser un collage de elementos del examen, o un gráfico que simbolice "estructura y enfoque")</p>
+        </div>
+
+        <h3>A. Panorama General de la Prueba Saber 11</h3>
+        <p>La prueba Saber 11 es un instrumento estandarizado de evaluación externa que valora las competencias desarrolladas por los estudiantes al finalizar la educación media en Colombia. Su objetivo primordial va más allá de la simple medición de conocimientos memorizados; se centra en la capacidad de los estudiantes para <strong>analizar información, razonar lógicamente, interpretar diversos tipos de textos y contextos, proponer soluciones argumentadas a problemas y adoptar posturas críticas</strong> frente a distintas situaciones.</p>
+        <p>Para ustedes, como docentes, una comprensión profunda de la prueba Saber 11 es fundamental para:</p>
+        <ul>
+            <li>Orientar eficazmente los procesos de enseñanza-aprendizaje hacia el desarrollo de las competencias evaluadas.</li>
+            <li>Alinear sus prácticas pedagógicas con las exigencias de una evaluación centrada en el "saber hacer".</li>
+            <li>Interpretar los resultados (tanto los oficiales del ICFES como los de simulacros) de manera informada para la toma de decisiones pedagógicas e institucionales para la mejora continua.</li>
+            <li>Fomentar en los estudiantes habilidades de pensamiento superior que son esenciales no solo para la prueba, sino para su vida académica, profesional y ciudadana.</li>
+        </ul>
+        
+        <h4>Estructura Detallada del Examen Saber 11:</h4>
+        <p>La prueba se administra en dos sesiones, cada una con una duración de 4 horas y 30 minutos. La distribución de preguntas por área académica es la siguiente:</p>
+        <div class="column-container">
+            <div class="column">
+                <h4>SESIÓN 1 (Jornada Mañana)</h4>
+                <ul>
+                    <li>Matemáticas: 25 preguntas</li>
+                    <li>Lectura Crítica: 41 preguntas</li>
+                    <li>Sociales y Ciudadanas: 25 preguntas</li>
+                    <li>Ciencias Naturales: 29 preguntas</li>
+                    <li><strong>TOTAL SESIÓN 1: 120 preguntas académicas</strong></li>
+                </ul>
+            </div>
+            <div class="column">
+                <h4>SESIÓN 2 (Jornada Tarde)</h4>
+                 <ul>
+                    <li>Sociales y Ciudadanas: 25 preguntas (sumadas a las de la Sesión 1)</li>
+                    <li>Matemáticas: 25 preguntas (sumadas a las de la Sesión 1)</li>
+                    <li>Ciencias Naturales: 29 preguntas (sumadas a las de la Sesión 1)</li>
+                    <li>Inglés: 55 preguntas</li>
+                    <li><strong>TOTAL SESIÓN 2: 134 preguntas académicas</strong></li>
+                </ul>
+            </div>
+        </div>
+        <p style="text-align:center; margin-top:15px; font-size:1rem;"><em>Nota Importante: Adicionalmente, se incluye un Cuestionario Socioeconómico. Es fundamental aclarar a los estudiantes que las respuestas a este cuestionario <strong>NO</strong> tienen ninguna incidencia en su puntaje académico en las pruebas. Su propósito es exclusivamente para la recolección de datos con fines investigativos y estadísticos por parte del ICFES.</em></p>
+        
+        <h4>Tipos de Preguntas: Formato y Desafío</h4>
+        <p>La totalidad de las preguntas de las pruebas académicas (Matemáticas, Lectura Crítica, Sociales y Ciudadanas, Ciencias Naturales e Inglés) son de <strong>selección múltiple con única respuesta válida</strong>. Cada pregunta generalmente se compone de:</p>
+        <ul>
+            <li>Un <span class="emphasis">contexto o estímulo</span>: Este es el material base sobre el cual se pregunta. Puede ser un texto (continuo o discontinuo, literario, informativo, argumentativo), una gráfica estadística, una tabla de datos, una fórmula, un esquema de un experimento, una imagen, una caricatura, una situación problema, etc.</li>
+            <li>Un <span class="emphasis">enunciado</span>: Es la pregunta propiamente dicha o la tarea específica que el estudiante debe resolver basándose en el contexto. Requiere una lectura cuidadosa para entender exactamente lo que se solicita.</li>
+            <li>Cuatro <span class="emphasis">opciones de respuesta (A, B, C, D)</span>: Solo una de estas opciones es la <span class="emphasis">clave</span> (la respuesta correcta o la más adecuada según los criterios de la prueba). Las otras tres opciones son <span class="emphasis">distractores</span>, diseñados para parecer plausibles pero que contienen algún tipo de error conceptual, de interpretación, de procedimiento, o son respuestas incompletas o irrelevantes a lo preguntado.</li>
+        </ul>
+        <p>El verdadero desafío para el estudiante, y por ende el foco de nuestra preparación, radica en desarrollar la habilidad no solo de recordar información, sino de <strong>comprender profundamente el contexto, interpretar con precisión el enunciado, y analizar críticamente cada una de las opciones</strong> para identificar la clave y descartar los distractores de manera fundamentada y lógica.</p>
+
+        <hr style="margin: 45px 0 35px 0; border-width: 2px; border-color: var(--primary-color); border-style: dashed;">
+
+        <h3>B. El Enfoque del ICFES: Diseño Centrado en Evidencias (DCE)</h3>
+        <p>Para construir una prueba válida y confiable, el ICFES utiliza una metodología robusta conocida como <strong>Diseño Centrado en Evidencias (DCE)</strong>. Entender sus fundamentos nos permite comprender la lógica detrás de cada pregunta.</p>
+        <p>El DCE es un marco que asegura que la prueba realmente mida lo que dice medir. Se basa en un argumento: si un estudiante responde correctamente a ciertas tareas, tenemos <span class="emphasis">evidencia</span> de que posee ciertas <span class="emphasis">habilidades o conocimientos</span> (competencias). La prueba se diseña para recolectar esa evidencia de manera sistemática.</p>
+        
+        <h4>Los Estratos Fundamentales del DCE (Adaptado por ICFES):</h4>
+        <p>El proceso de diseño sigue una jerarquía lógica de capas o estratos interconectados. Los cuatro estratos principales que el ICFES considera en la construcción de sus instrumentos son:</p>
+        <div class="dce-diagram">
+            <div class="dce-item"><p><strong>1. Análisis del DOMINIO</strong></p></div>
+            <p><span class="dce-arrow">⇩</span></p>
+            <div class="dce-item"><p><strong>2. Especificación de las AFIRMACIONES</strong></p></div>
+            <p><span class="dce-arrow">⇩</span></p>
+            <div class="dce-item"><p><strong>3. Definición de las EVIDENCIAS</strong></p></div>
+            <p><span class="dce-arrow">⇩</span></p>
+            <div class="dce-item"><p><strong>4. Desarrollo de las TAREAS (Preguntas/Ítems)</strong></p></div>
+        </div>
+
+        <ol>
+            <li>
+                <h4>1. Análisis del Dominio: ¿Qué se va a evaluar?</h4>
+                <p>Esta es la capa fundacional. Consiste en un análisis exhaustivo y profundo del área de conocimiento o conjunto de habilidades que se pretende evaluar (por ejemplo, el dominio de las matemáticas para estudiantes de grado 11). Se identifican y delimitan los <span class="emphasis">Conocimientos, Habilidades y Destrezas (CHD)</span> que son cruciales y que un estudiante debería haber desarrollado al finalizar la educación media. Aquí se establece el <span class="emphasis">propósito fundamental de la prueba</span> para cada área específica (Matemáticas, Lectura Crítica, etc.). Este análisis se nutre de los estándares básicos de competencias del Ministerio de Educación Nacional, los lineamientos curriculares, consultas con expertos en cada disciplina, marcos teóricos de aprendizaje y el análisis de las prácticas de enseñanza.</p>
+            </li>
+            <li>
+                <h4>2. Especificación de las Afirmaciones: ¿Qué queremos decir sobre los estudiantes?</h4>
+                <p>Una vez definido el dominio, se formulan <span class="emphasis">afirmaciones</span>. Estas son proposiciones o enunciados explícitos acerca de lo que se espera que los estudiantes sepan, comprendan o sean capaces de hacer en relación con los CHD identificados en el dominio. Son, en esencia, las <span class="emphasis">conclusiones que se desean inferir sobre las competencias</span> de un estudiante a partir de su desempeño en la prueba. Las afirmaciones deben ser claras, observables (al menos indirectamente a través del desempeño en tareas) y medibles. Las <strong>COMPETENCIAS</strong> generales que el ICFES define para cada prueba (por ejemplo, en Matemáticas: "Interpretación y representación de datos", "Formulación y ejecución de estrategias", "Argumentación") son grandes afirmaciones sobre las capacidades de los estudiantes.</p>
+            </li>
+            <li>
+                <h4>3. Definición de las Evidencias: ¿Cómo sabremos que la afirmación es cierta?</h4>
+                <p>Para cada afirmación, se deben especificar las <span class="emphasis">evidencias</span> necesarias para sustentarla. Las evidencias describen las <span class="emphasis">conductas, acciones o productos observables</span> del estudiante que, de manifestarse, indicarían que posee la habilidad o el conocimiento enunciado en la afirmación. Responden a la pregunta: "¿Qué tiene que hacer o demostrar el estudiante para convencernos de que realmente puede [lo que dice la afirmación]?". Las evidencias son cruciales porque conectan las afirmaciones (más abstractas) con las tareas concretas de la prueba. En los documentos técnicos del ICFES (como las Guías de Orientación), las afirmaciones (competencias) se desglosan en <span class="emphasis">"aprendizajes"</span>, <span class="emphasis">"descriptores de desempeño"</span> o <span class="emphasis">"evidencias"</span> más específicas, que son los elementos que se evalúan directamente a través de las preguntas.</p>
+            </li>
+            <li>
+                <h4>4. Desarrollo de las Tareas (Preguntas o Ítems): ¿Cómo obtenemos la evidencia?</h4>
+                <p>Finalmente, se diseñan las <span class="emphasis">tareas</span> (es decir, las preguntas o ítems específicos de la prueba). Cada tarea se construye cuidadosamente para provocar en el estudiante la conducta o el producto observable que ha sido definido como evidencia para una o más afirmaciones. Las tareas presentan el contexto, el enunciado y las opciones de respuesta. El formato de las tareas (selección múltiple, preguntas abiertas, etc., aunque en Saber 11 son de selección múltiple) y sus características (complejidad, tipo de estímulo, demanda cognitiva) se eligen en función de la evidencia que se busca obtener.</p>
+            </li>
+        </ol>
+
+        <h4>Implicaciones Pedagógicas del Enfoque DCE para los Docentes:</h4>
+        <p>Comprender la lógica del Diseño Centrado en Evidencias es transformador para la práctica docente, ya que nos invita a:</p>
+        <ul>
+            <li>Ir más allá de la simple cobertura de contenidos y enfocarnos en el <strong>desarrollo explícito de competencias y habilidades de pensamiento</strong> de orden superior.</li>
+            <li>Diseñar actividades de aprendizaje y, fundamentalmente, estrategias de <strong>evaluación formativa en el aula</strong> que reflejen la lógica del DCE: ¿Qué quiero que mis estudiantes sepan hacer (afirmación)? ¿Cómo me lo van a demostrar (evidencia)? ¿Qué tarea les voy a proponer para ello?</li>
+            <li>Entender que cada pregunta en una prueba como Saber 11 tiene un <span class="emphasis">propósito evaluativo claro y definido</span>: recoger evidencia específica sobre una habilidad particular. Esto ayuda a desmitificar la prueba.</li>
+            <li>Preparar a los estudiantes no solo en contenidos, sino en los <span class="emphasis">procesos</span> de analizar contextos, interpretar preguntas con precisión, construir argumentos y justificar sus respuestas, que son las habilidades fundamentales que subyacen a un buen desempeño en evaluaciones por competencias.</li>
+        </ul>
+        <p>Las <strong>Rutas Metodológicas de Grupo Edúcate Colombia</strong>, que exploraremos en el siguiente módulo, han sido diseñadas precisamente para traducir este enfoque del DCE en estrategias concretas y accionables que los docentes pueden modelar y los estudiantes pueden aplicar para abordar la prueba Saber 11 con mayor eficacia y comprensión.</p>
+
+        <div class="nav-buttons-container">
+            <a href="index.html" class="nav-button prev-button">← Portada del Taller</a>
+            <a href="pagina_ruta_modelado.html" class="nav-button next-button">Siguiente: La Ruta Maestra →</a>
+        </div>
+
+    </main>
+
+    <footer id="main-footer">
+        <div class="footer-logo-placeholder">
+            (LOGO Grupo Edúcate)
+        </div>
+        <p><strong>Autor:</strong> Marlon Galvis Villa - Director de Pedagogía, Grupo Edúcate Colombia.</p>
+        <p>Módulo 1 del Taller Docente Saber 11.</p>
+    </footer>
+</body>
+</html>

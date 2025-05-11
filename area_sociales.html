@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller Práctico: Sociales y Ciudadanas - Taller Docente</title>
+    <!-- Barlow Condensed de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === CSS EMBEBIDO - MISMOS ESTILOS GLOBALES === */
+        :root {
+            --brand-dark-blue: #17334B; --brand-teal: #54BBAB; --brand-orange: #F39325; --brand-light-blue: #11678B;
+            --neutral-white: #ffffff; --neutral-gray-light: #f8f9fa; --neutral-gray-dark: #333333; --neutral-gray-medium: #e9ecef;
+            --primary-color: var(--brand-teal); --secondary-color: var(--brand-orange); --header-bg: var(--brand-dark-blue);
+            --footer-bg: var(--brand-dark-blue); --light-bg: var(--neutral-white); --dark-text: var(--neutral-gray-dark);
+            --light-text: var(--neutral-white); --link-color: var(--brand-light-blue);
+            --button-bg: var(--secondary-color); --button-text: var(--light-text); --button-hover-bg: var(--primary-color);
+            --button-hover-text: var(--light-text); --placeholder-bg: var(--neutral-gray-medium); --placeholder-border: #ced4da;
+            --code-bg: #fef0e6; --code-border: #ffe5c4; --code-text: #D94D15;
+            --ruta-paso-bg: #e6f7ff; --ruta-paso-border: var(--brand-light-blue);
+            --guided-practice-bg: #fffbe6; --guided-practice-border: #ffe58f;
+            --independent-practice-bg: #e7f5ff; --independent-practice-border: #91d5ff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+        body { font-family: 'Barlow Condensed', sans-serif; line-height: 1.7; color: var(--dark-text); background-color: var(--neutral-gray-light); font-weight: 400; }
+        
+        .page-header { background-color: var(--header-bg); color: var(--light-text); padding: 0.8rem 1.5rem; position: sticky; top: 0; z-index: 1000; width: 100%; box-shadow: 0 3px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: space-between; }
+        .header-logo-placeholder { width: 150px; height: 45px; background-color: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 300; border-radius: 4px; color: rgba(255,255,255,0.7); }
+        .page-header nav ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: flex-end; margin: 0; padding: 0; }
+        .page-header nav ul li { margin: 0.2rem 0.4rem; }
+        .page-header nav ul li a { color: var(--light-text); text-decoration: none; font-weight: 600; padding: 0.6rem 1rem; border-radius: 4px; transition: background-color 0.3s ease, color 0.3s ease; font-size: 0.95rem; white-space: nowrap;}
+        .page-header nav ul li a:hover, .page-header nav ul li a:focus { background-color: var(--button-bg); color: var(--button-text); outline: none; }
+        .page-header .nav-item.back-to-index a { background-color: var(--secondary-color); color: var(--light-text); font-weight: 700; }
+        .page-header .nav-item.back-to-index a:hover { background-color: var(--primary-color); }
+        .page-header .nav-item.back-to-module a { background-color: var(--primary-color); color: var(--light-text); font-weight: 700; }
+        .page-header .nav-item.back-to-module a:hover { background-color: var(--secondary-color); }
+
+        .page-main-content { max-width: 1000px; margin: 35px auto; padding: 35px; background-color: var(--light-bg); box-shadow: 0 5px 25px rgba(0,0,0,0.1); border-radius: 12px; }
+        .page-title { color: var(--brand-dark-blue); margin-bottom: 35px; font-size: 2.6rem; text-align: center; font-weight: 700; padding-bottom: 15px; border-bottom: 3px solid var(--primary-color); }
+        .page-main-content h3 { color: var(--secondary-color); margin-top: 40px; margin-bottom: 20px; font-size: 1.9rem; font-weight: 700; border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; display: inline-block; }
+        .page-main-content h4 { color: var(--brand-light-blue); margin-top: 25px; margin-bottom: 12px; font-size: 1.5rem; font-weight: 600; }
+        .page-main-content h5 { color: var(--brand-dark-blue); font-weight: 600; font-size: 1.2rem; margin-top: 15px; margin-bottom: 8px; }
+        .page-main-content p, .page-main-content ul, .page-main-content ol { margin-bottom: 20px; font-size: 1.15rem; color: var(--dark-text); }
+        .page-main-content ul, .page-main-content ol { padding-left: 40px; } .page-main-content li { margin-bottom: 12px; }
+        .page-main-content strong { font-weight: 700; color: var(--brand-dark-blue); }
+        .page-main-content .emphasis { background-color: var(--code-bg); padding: 3px 7px; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif; color: var(--code-text); border: 1px solid var(--code-border); font-weight: 600; }
+        .image-placeholder-page { background-color: var(--placeholder-bg); border: 2px dashed var(--placeholder-border); padding: 30px; margin: 0 auto 35px auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; min-height: 200px; max-width: 750px; text-align: center; color: #6c757d; font-style: italic; font-weight: 300;}
+        
+        .ruta-paso-container { margin-bottom: 30px; }
+        .ruta-paso { background-color: var(--ruta-paso-bg); border-left: 6px solid var(--ruta-paso-border); padding: 20px; border-radius: 0 8px 8px 0; box-shadow: 2px 2px 8px rgba(0,0,0,0.05); }
+        .ruta-paso h4 { color: var(--ruta-paso-border); margin-top: 0; font-size: 1.6rem; font-weight: 700; margin-bottom: 15px; }
+        .ruta-paso p, .ruta-paso ul { font-size: 1.1rem; } .ruta-paso ul { list-style-type: disc; } .ruta-paso ul li { margin-bottom: 8px; }
+        .ruta-paso .sub-item { font-weight: 600; color: var(--brand-dark-blue); margin-top: 10px; display: block; }
+
+        .example-question-container { background-color: #fff; border: 1px solid #ddd; border-left: 5px solid var(--secondary-color); padding: 20px; margin: 25px 0; border-radius: 8px; box-shadow: 2px 2px 8px rgba(0,0,0,0.05); }
+        .example-question-container > h4 { color: var(--brand-dark-blue); margin-top: 0; border-bottom: 1px solid var(--brand-dark-blue); padding-bottom: 5px; font-size: 1.4rem;}
+        .example-question-container .context-text { background-color: #f9f9f9; padding: 15px; border-radius: 4px; margin-bottom: 15px; border: 1px solid #eee; font-size: 1rem; line-height: 1.5; }
+        .example-question-container .question-title { font-weight: 700; margin-bottom: 10px; color: var(--header-bg); display: block; font-size: 1.1rem; }
+        .example-question-container ol.options { list-style-type: upper-alpha; padding-left: 25px; margin-top: 10px; }
+        .example-question-container ol.options li { margin-bottom: 8px; font-size: 1.05rem; }
+        .correct-answer-box { border: 2px solid var(--accent-color); background-color: #e6ffed; padding: 12px; margin-top: 15px; border-radius: 5px; font-weight: 600; }
+        .correct-answer-box strong { color: var(--accent-color); }
+        .prompt { font-style: italic; color: var(--link-color); margin: 10px 0; display: block; background-color: #f0f8ff; padding: 10px; border-radius: 4px; border-left: 4px solid var(--link-color); font-size: 1.05rem;}
+        .practice-box { margin-top: 25px; padding: 20px; border-radius: 8px; }
+        .guided-practice { background-color: var(--guided-practice-bg); border: 1px solid var(--guided-practice-border); }
+        .independent-practice { background-color: var(--independent-practice-bg); border: 1px solid var(--independent-practice-border); }
+
+        .nav-buttons-container { display: flex; justify-content: space-between; margin-top: 40px; }
+        .nav-button { display: inline-block; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 1.1rem; transition: all 0.3s ease; }
+        .prev-button { background-color: var(--neutral-gray-medium); color: var(--dark-text); border: 1px solid var(--placeholder-border); }
+        .prev-button:hover { background-color: #d3d9df; }
+        .next-button { background-color: var(--button-bg); color: var(--button-text); }
+        .next-button:hover { background-color: var(--button-hover-bg); color: var(--button-hover-text); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+
+        #main-footer { background-color: var(--footer-bg); color: #bdc3c7; text-align: center; padding: 25px 15px; margin-top: 40px; font-size: 0.9rem; }
+        #main-footer p { margin-bottom: 8px; font-weight: 300; } #main-footer strong { font-weight: 600; color: var(--light-text); }
+        .footer-logo-placeholder { width: 120px; height: 40px; background-color: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.4); margin: 10px auto 5px auto; display:flex; align-items:center; justify-content:center; font-size:0.7rem; border-radius: 4px;}
+
+        @media (max-width: 768px) { /* Mismos media queries que antes */ }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="header-logo-placeholder">
+            (LOGO Grupo Edúcate)
+        </div>
+        <nav>
+            <ul>
+                <li class="nav-item back-to-index"><a href="index.html">← Inicio Taller</a></li>
+                <li class="nav-item back-to-module"><a href="pagina_estrategias_aula.html">← Módulos por Área</a></li>
+                <li class="nav-item"><a href="area_matematicas.html">Matemáticas</a></li>
+                <li class="nav-item"><a href="area_naturales.html">C. Naturales</a></li>
+                <!-- Añadir más enlaces -->
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page-main-content">
+        <h2 class="page-title">Taller Práctico: Dominando Sociales y Ciudadanas 🌍</h2>
+
+        <div class="image-placeholder-page">
+            <p>(Imagen representativa de Sociales y Ciudadanas: Mapa del mundo, personas diversas debatiendo, balanza de la justicia, constitución)</p>
+        </div>
+
+        <h3>A. La Ruta Metodológica Clave para Sociales y Ciudadanas (Saber 11)</h3>
+        <p>El área de Sociales y Ciudadanas evalúa la comprensión de conceptos sociales, el análisis de problemáticas, la interpretación de perspectivas y el ejercicio del pensamiento crítico y ciudadano. La <strong>Ruta Clave para la Resolución de Ítems de Sociales y Ciudadanas</strong> de Grupo Edúcate Colombia estructura este abordaje:</p>
+        
+        <!-- Fase 1: DECODIFICACIÓN -->
+        <div class="ruta-paso-container">
+            <div class="ruta-paso" style="border-left-color: var(--brand-orange);">
+                <h4 style="color: var(--brand-orange);">FASE 1: DECODIFICACIÓN (Entender el Reto: Estímulo y Pregunta)</h4>
+                <p><strong>Objetivo Pedagógico (Docente):</strong> Asegurar que el estudiante comprenda a cabalidad la información presentada (contexto histórico, social, político, económico, geográfico, cultural) y lo que se le está solicitando específicamente (pregunta).</p>
+                <h5>Acciones del Estudiante:</h5>
+                <ul>
+                    <li><strong>Exploración Activa del Estímulo:</strong> Leer atentamente el texto, observar el gráfico, la tabla, el mapa, el diagrama, la imagen o describir la situación/experimento/problema presentado. Identificar el tema central, los actores involucrados, el periodo temporal, el lugar y el tipo de información (hechos, opiniones, datos, argumentos).</li>
+                    <li><strong>Disección de la Pregunta:</strong> Leer el enunciado y la pregunta con precisión. Identificar:
+                        <ul>
+                            <li><span class="sub-item">La Tarea Central:</span> ¿Qué acción mental principal se pide? (Identificar, explicar, comparar, inferir, evaluar, relacionar, proponer, argumentar, etc.).</li>
+                            <li><span class="sub-item">El Foco Específico:</span> ¿Sobre qué elemento particular del estímulo, concepto social, o perspectiva se centra la pregunta?</li>
+                            <li><span class="sub-item">Palabras y Datos Clave:</span> Subrayar o resaltar términos cruciales (conceptos sociales, nombres de teorías, actores, fechas, lugares), datos numéricos, unidades, condiciones, restricciones o conceptos específicos mencionados.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Reformulación (Opcional):</strong> Intentar decir la pregunta o el problema con palabras propias para verificar la comprensión.</li>
+                </ul>
+                <h5>Guía del Docente:</h5>
+                <ul>
+                    <li>Modelar cómo abordar diferentes tipos de estímulos (textuales, gráficos, mapas, situacionales).</li>
+                    <li>Enfatizar la lectura detallada de la pregunta para evitar responder algo distinto a lo solicitado.</li>
+                    <li>Usar <span class="emphasis">PO</span>: <em>"¿Qué nos muestra/dice esta información (mapa, texto, gráfico)?", "¿Cuál es el tema principal aquí?", "¿Qué tipo de datos tenemos?", "¿Qué es <span class="emphasis">exactamente</span> lo que tienes que hacer/encontrar/decidir?", "¿Qué palabras te dan la pista clave?".</em></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fase 2: CONEXIÓN Y ESTRATEGIA -->
+         <div class="ruta-paso-container">
+            <div class="ruta-paso" style="border-left-color: var(--brand-light-blue);">
+                <h4 style="color: var(--brand-light-blue);">FASE 2: CONEXIÓN Y ESTRATEGIA (Activar Saberes y Planificar)</h4>
+                <p><strong>Objetivo Pedagógico (Docente):</strong> Ayudar al estudiante a conectar la pregunta y el estímulo con sus conocimientos previos (conceptuales, procedimentales de las ciencias sociales) y a seleccionar un plan o estrategia de abordaje.</p>
+                <h5>Acciones del Estudiante:</h5>
+                <ul>
+                    <li><strong>Localizar Evidencia/Pistas:</strong> Volver al estímulo y ubicar la información específica (frases, datos, partes del gráfico/mapa, elementos de la imagen) que se relaciona <span class="emphasis">directamente</span> con la tarea identificada en la Fase 1.</li>
+                    <li><strong>Activar Conocimiento Relevante:</strong> ¿Qué conceptos (democracia, estado, ciudadanía, derechos, economía, cultura, conflicto, etc.), teorías, principios (constitución, DDHH), modelos (sistemas económicos, políticos), o procesos (históricos, sociales) necesito recordar y aplicar aquí?</li>
+                    <li><strong>Identificar Tipo de Razonamiento:</strong> ¿La respuesta es directa/literal? ¿Requiere una inferencia, un análisis de causas/consecuencias, una comparación de perspectivas, una evaluación de argumentos, o la aplicación de un principio ciudadano?</li>
+                    <li><strong>Definir la Estrategia:</strong> ¿Cuál es el plan? (Ej: aplicar un concepto, comparar posturas de actores, analizar un mapa, interpretar una tabla de datos, seguir una secuencia de eventos históricos, etc.).</li>
+                </ul>
+                <h5>Guía del Docente:</h5>
+                <ul>
+                    <li>Enseñar explícitamente a buscar la evidencia pertinente en el estímulo.</li>
+                    <li>Ayudar a conectar la pregunta con los conocimientos <span class="emphasis">específicos</span> del área.</li>
+                    <li>Discutir diferentes estrategias y cuándo usar cada una.</li>
+                    <li>Usar <span class="emphasis">PO</span>: <em>"¿Dónde está la clave en el texto/mapa para responder esto?", "¿Qué tema o concepto que aprendiste se aplica aquí?", "¿Qué habilidad (recordar, analizar, comparar, opinar) necesitas usar?", "¿Cómo vas a proceder para encontrar la respuesta?".</em></li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Fase 3: EJECUCIÓN Y EVALUACIÓN -->
+        <div class="ruta-paso-container">
+            <div class="ruta-paso" style="border-left-color: var(--accent-color);">
+                <h4 style="color: var(--accent-color);">FASE 3: EJECUCIÓN Y EVALUACIÓN (Resolver y Analizar Opciones)</h4>
+                <p><strong>Objetivo Pedagógico (Docente):</strong> Guiar la aplicación de la estrategia o razonamiento definido, y desarrollar el pensamiento crítico mediante el análisis riguroso de todas las opciones, fundamentando el descarte de los distractores.</p>
+                <h5>Acciones del Estudiante:</h5>
+                <ul>
+                    <li><strong>Ejecutar el Plan:</strong> Aplicar el razonamiento lógico, seguir los pasos de la estrategia, interpretar los datos según el plan.</li>
+                    <li><strong>Análisis Crítico de TODAS las Opciones:</strong> Leer cada opción detenidamente.</li>
+                    <li><strong>Contrastar y Validar:</strong> Comparar cada opción con el resultado de la ejecución y/o con la evidencia/principios identificados. ¿Es coherente? ¿Está sustentada?</li>
+                    <li><strong>Descarte Fundamentado de Distractores (¡Fundamental!):</strong> Para cada opción <span class="emphasis">no</span> correcta, identificar <span class="emphasis">por qué</span> es incorrecta:
+                        <ul>
+                            <li><span class="sub-item">Errores Conceptuales:</span> ¿Aplica mal un concepto social/político/económico?</li>
+                            <li><span class="sub-item">Errores de Interpretación:</span> ¿Interpreta mal el texto, gráfico, mapa o la situación?</li>
+                            <li><span class="sub-item">Incoherencias/Contradicciones:</span> ¿Contradice la información del estímulo o principios básicos (ej: derechos humanos)?</li>
+                            <li><span class="sub-item">Irrelevancia:</span> ¿Es correcta pero no responde a la pregunta específica?</li>
+                            <li><span class="sub-item">Simplificaciones/Generalizaciones Indebidas:</span> ¿Ofrece una visión parcial o demasiado simple de un fenómeno complejo?</li>
+                        </ul>
+                    </li>
+                </ul>
+                <h5>Guía del Docente:</h5>
+                <ul>
+                    <li>Modelar la ejecución de procedimientos (si aplica) y el análisis sistemático de las opciones.</li>
+                    <li>Enseñar explícitamente los tipos de errores y trampas comunes en los distractores de Sociales y Ciudadanas.</li>
+                    <li>Exigir la justificación del descarte: "Dime por qué la opción A NO es correcta".</li>
+                    <li>Usar <span class="emphasis">PO</span>: <em>"¿Cómo llegaste a esa conclusión/interpretación?", "¿Qué evidencia soporta/refuta la opción A?", "¿Qué error específico encuentras en la opción B?", "¿Por qué esta opción parece correcta pero no lo es según el contexto social/político?".</em></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fase 4: VALIDACIÓN Y SELECCIÓN -->
+         <div class="ruta-paso-container">
+            <div class="ruta-paso" style="border-left-color: var(--brand-purple, #521537);">
+                <h4 style="color: var(--brand-purple, #521537);">FASE 4: VALIDACIÓN Y SELECCIÓN (Asegurar y Elegir la Mejor)</h4>
+                <p><strong>Objetivo Pedagógico (Docente):</strong> Consolidar la elección final, asegurando que sea la respuesta más adecuada, precisa, completa y mejor sustentada por la evidencia y el razonamiento aplicado.</p>
+                <h5>Acciones del Estudiante:</h5>
+                <ul>
+                    <li><strong>Verificar Coherencia Final:</strong> Releer la pregunta y la opción seleccionada. ¿Responde directamente a lo solicitado? ¿Es consistente con todo el análisis previo?</li>
+                    <li><strong>Evaluar Razonabilidad:</strong> ¿El resultado/afirmación/explicación tiene sentido lógico y socio-histórico en el contexto del problema?</li>
+                    <li><strong>Comparar Finalistas (si es necesario):</strong> Si aún hay duda, reevaluar buscando cuál tiene el mejor y más directo soporte en el estímulo y los principios del área.</li>
+                    <li><strong>Seleccionar con Confianza:</strong> Marcar la opción elegida, entendiendo por qué es superior a las demás.</li>
+                </ul>
+                <h5>Guía del Docente:</h5>
+                <ul>
+                    <li>Recalcar el concepto de "mejor respuesta" en pruebas estandarizadas.</li>
+                    <li>Fomentar una revisión final rápida.</li>
+                    <li>Usar <span class="emphasis">PO</span>: <em>"¿Estás seguro de que esta es la MEJOR respuesta posible?", "¿Responde completamente a la pregunta?", "¿Tu justificación es sólida y basada en el estímulo/principios?".</em></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr style="margin: 40px 0 30px 0; border-width: 1.5px; border-color: var(--primary-color); border-style: dashed;">
+
+        <!-- INICIO DEL CONTENIDO DE MODELADO, GUIADO E INDEPENDIENTE PARA SOCIALES -->
+        <h3>B. Aplicación Práctica de la Ruta Clave para Sociales y Ciudadanas</h3>
+        
+        <h4>1. Modelado Docente: Aplicando la Ruta Paso a Paso</h4>
+        <p>Vamos a aplicar esta ruta a una pregunta real de Sociales y Ciudadanas.</p>
+        <div class="example-question-container">
+            <h4>Pregunta Modelo (Tomada de ICFES 2024 - Pregunta 74, Sesión 2, pág. 29)</h4>
+            <div class="context-text">
+                <p><strong>Contexto:</strong></p>
+                <p><em>La tasa de robos en un municipio ha aumentado considerablemente en el presente año, en comparación con el año anterior. Esta situación preocupa al Gobierno municipal y a sus ciudadanos, por lo que están buscándose alternativas para resolverla.</em></p>
+                <p><em>La policía propone realizar más operativos en los que se decomisen tanto las armas blancas como las de fuego, ya que estas son las principales herramientas que se usan para intimidar a la gente y quitarle sus pertenencias.</em></p>
+                <p><em>El gobernador afirma que la solución es aumentar los permisos para el porte de armas de fuego, de manera que una mayor cantidad de personas las tengan y puedan defenderse de quienes quieran robarlas.</em></p>
+                <p><em>Una líder ciudadana propone entrenar a los habitantes del municipio para que puedan identificar personas sospechosas e informar a las autoridades antes de que estas cometan algún delito.</em></p>
+                <p><em>Un empresario dice que la solución está en poner cámaras de vigilancia que permitan observar a los ciudadanos en todo momento, de manera que se facilite detectar y judicializar a aquellos que porten armas sin permiso.</em></p>
+            </div>
+            <span class="question-title">Pregunta 74:</span>
+            <p><strong>De las soluciones propuestas, ¿cuáles son incompatibles y por qué?</strong></p>
+            <ol class="options">
+                <li>A. La de la policía y la del gobernador, porque la policía busca reducir el número de armas que se usan para robar, mientras que el gobernador propone incrementarlo.</li>
+                <li>B. La de la policía y la del empresario, porque el empresario quiere darles libertad a los ciudadanos para usar armas, mientras que la policía propone restringir su porte y uso.</li>
+                <li>C. La del empresario y la de la líder ciudadana, porque la líder ciudadana propone simplemente prevenir los delitos, mientras que el empresario insiste en que todo sospechoso debe judicializarse.</li>
+                <li>D. La del líder ciudadana y la del gobernador, porque la líder cree que los habitantes del municipio deben contribuir a la solución del problema, mientras que el gobernador cree que solo las autoridades deben hacerlo.</li>
+            </ol>
+            <div class="correct-answer-box"><strong>Respuesta Correcta (Validar): A</strong></div>
+            <h5 style="margin-top:15px;">Desarrollo Detallado de la Ruta (Modelado por el Facilitador):</h5>
+            <ol>
+                <li><strong>PASO 1 (Decodificación):</strong>
+                    <ul>
+                        <li><strong>Contexto:</strong> Aumento de robos en un municipio. Se presentan 4 propuestas de solución: Policía (decomisar armas), Gobernador (aumentar permisos porte armas), Líder ciudadana (entrenar ciudadanos para informar), Empresario (cámaras para detectar portadores de armas sin permiso).</li>
+                        <li><strong>Pregunta:</strong> ¿Cuáles de estas 4 soluciones son INCOMPATIBLES entre sí y POR QUÉ?</li>
+                    </ul>
+                </li>
+                <li><strong>PASO 2 (Conexión y Estrategia):</strong>
+                    <ul>
+                        <li><strong>Conceptos:</strong> Incompatibilidad (ideas o acciones que no pueden coexistir o que se oponen directamente). Seguridad ciudadana, rol del Estado, derechos individuales.</li>
+                        <li><strong>Plan:</strong> Analizar cada par de propuestas mencionado en las opciones de respuesta y determinar si sus objetivos o métodos son contradictorios.</li>
+                    </ul>
+                </li>
+                <li><strong>PASO 3 (Ejecución y Evaluación de Opciones):</strong>
+                    <ul>
+                        <li><strong>A. Policía vs. Gobernador:</strong> Policía quiere DECOMISAR armas (reducir su circulación). Gobernador quiere AUMENTAR PERMISOS para porte de armas (incrementar su circulación). Estas son claramente opuestas e incompatibles. La justificación "policía busca reducir... gobernador propone incrementarlo" es correcta. POSIBLE.</li>
+                        <li><strong>B. Policía vs. Empresario:</strong> Policía decomisa armas. Empresario pone cámaras para detectar porte ILEGAL. No son directamente incompatibles; las cámaras podrían ayudar a la policía. Empresario no dice que quiere darles libertad para usar armas. DESCARTADA.</li>
+                        <li><strong>C. Empresario vs. Líder ciudadana:</strong> Líder propone prevención ciudadana. Empresario propone vigilancia para judicializar. No son incompatibles, podrían ser complementarias. La justificación sobre "judicializar a todo sospechoso" no está explícita en la propuesta del empresario (habla de detectar porte ilegal). DESCARTADA.</li>
+                        <li><strong>D. Líder ciudadana vs. Gobernador:</strong> Líder propone participación ciudadana. Gobernador propone más armas para defensa. No son directamente incompatibles. La justificación sobre que el gobernador cree que "solo las autoridades deben hacerlo" no se deduce del texto. DESCARTADA.</li>
+                    </ul>
+                </li>
+                <li><strong>PASO 4 (Validación y Selección):</strong>
+                    <ul>
+                        <li>La opción A presenta una contradicción directa y clara entre reducir la cantidad de armas en circulación y aumentar la cantidad de armas en circulación (legales). Las demás opciones no muestran incompatibilidades tan directas o se basan en interpretaciones no sustentadas.</li>
+                        <li><strong>Por lo tanto, la respuesta correcta es A.</strong></li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <hr style="margin: 40px 0 30px 0; border-width: 1.5px; border-color: var(--primary-color); border-style: dashed;">
+        
+        <h3>C. Práctica Guiada: ¡Apliquemos la Ruta Juntos!</h3>
+        <p>Como docentes, trabajemos esta pregunta, enfocándonos en cada fase.</p>
+        <div class="example-question-container practice-box guided-practice">
+            <h4>Pregunta Guiada (Tomada de ICFES 2024 - Pregunta 77, Sesión 2, pág. 30)</h4>
+            <div class="context-text">
+                <p><strong>Contexto:</strong></p>
+                <p><em>"El respeto al derecho ajeno es la paz". Esta frase, atribuida al político mexicano Benito Juárez, revela una ideología liberal porque:</em></p>
+            </div>
+            <span class="question-title">Pregunta 77:</span>
+            <ol class="options">
+                <li>A. Muestra que la solidaridad entre las personas es la base de cualquier sociedad.</li>
+                <li>B. Presenta los derechos individuales como un valor supremo que debe ser resguardado.</li>
+                <li>C. Plantea que el interés colectivo está por encima de los derechos individuales.</li>
+                <li>D. Concibe la violencia como una forma válida para resolver los conflictos entre individuos.</li>
+            </ol>
+            <div class="correct-answer-box" style="margin-top:15px; background-color:#fff9e6; border-color:#ffd566;">
+                <strong>Respuesta Correcta (A construir en grupo):</strong> [ Guía: ¿Cuál es el pilar del pensamiento liberal clásico? ¿Cómo se relaciona con la frase? ]
+            </div>
+            <h5 style="margin-top:15px;">Guía para Aplicar la Ruta (Discusión Docente):</h5>
+            <p class="prompt"><strong>Paso 1 (Decodificación):</strong> Frase clave: "El respeto al derecho ajeno es la paz". Pregunta: ¿Por qué esta frase es LIBERAL?</p>
+            <p class="prompt"><strong>Paso 2 (Conexión/Plan):</strong> ¿Cuáles son los principios fundamentales de la ideología LIBERAL (especialmente el liberalismo clásico)? (Énfasis en derechos individuales, libertad, propiedad, limitación del poder estatal). Plan: Vincular la frase con estos principios y ver qué opción lo refleja.</p>
+            <p class="prompt"><strong>Paso 3 (Ejecutar/Evaluar - ¡A trabajar en grupo!):</strong>
+                Analicen cada opción:
+                <ul>
+                    <li>A (Solidaridad): ¿Es el concepto central de la frase o del liberalismo?</li>
+                    <li>B (Derechos individuales como valor supremo): ¿La frase "respeto al derecho ajeno" se alinea con esta idea? ¿Es esto un pilar liberal?</li>
+                    <li>C (Interés colectivo sobre individual): ¿Es esto característico del liberalismo o de otras ideologías?</li>
+                    <li>D (Violencia como forma válida): ¿La frase sugiere esto?</li>
+                </ul>
+                Descarten las opciones que no se alinean con los principios liberales o con el significado de la frase.
+            </p>
+            <p class="prompt"><strong>Paso 4 (Asegurar/Elegir):</strong> ¿Qué opción explica de manera más directa y precisa por qué la frase de Benito Juárez es considerada una expresión de la ideología liberal? ¡Fundamenten su elección!</p>
+        </div>
+
+        <hr style="margin: 40px 0 30px 0; border-width: 1.5px; border-color: var(--primary-color); border-style: dashed;">
+
+        <h3>D. Práctica Independiente: Desafío para los Docentes</h3>
+        <p>Apliquen la Ruta Clave para Sociales y Ciudadanas a la siguiente pregunta. Discutan en grupos.</p>
+        <div class="example-question-container practice-box independent-practice">
+            <h4>Pregunta Independiente (Tomada de ICFES 2024 - Pregunta 81, Sesión 2, pág. 32)</h4>
+            <div class="context-text">
+                <p><strong>Contexto:</strong></p>
+                <p><em>El artículo 26 de la Declaración Universal de los Derechos Humanos dice: "Toda persona tiene derecho a la educación. La educación debe ser gratuita, al menos en lo concerniente a la instrucción elemental y fundamental. La instrucción elemental será obligatoria. La instrucción técnica y profesional habrá de ser generalizada; el acceso a los estudios superiores será igual para todos, en función de los méritos respectivos".</em></p>
+                <p><em>En nuestro país, la Constitución política, en su artículo 67, párrafo 1, afirma que: "La educación es un derecho de la persona y un servicio público que tiene una función social: con ella, se busca el acceso al conocimiento, a la ciencia, a la técnica, y a los demás bienes y valores de la cultura".</em></p>
+            </div>
+            <span class="question-title">Pregunta 81:</span>
+            <p><strong>¿Cuál de las siguientes afirmaciones describe la semejanza entre los dos artículos?</strong></p>
+            <ol class="options">
+                <li>A. Estudiar es un deber y obligación de todas las personas.</li>
+                <li>B. Que las personas estudien es una obligación del Estado.</li>
+                <li>C. El acceso a la educación es un derecho de toda persona.</li>
+                <li>D. La educación es un servicio público de acceso gratuito.</li>
+            </ol>
+            <p class="prompt" style="font-weight:600; color:var(--brand-dark-blue);"><strong>¡Su Desafío!</strong> Apliquen los 4 pasos. Decodifiquen ambos artículos y la pregunta. Conecten con el concepto de "semejanza". Ejecuten comparando las ideas centrales de cada artículo. Evalúen cada opción: ¿Cuál describe una idea PRESENTE y CENTRAL en AMBOS artículos? Seleccionen la mejor.</p>
+            <!-- No se muestra la respuesta correcta aquí -->
+        </div>
+
+        <div class="nav-buttons-container">
+            <a href="area_matematicas.html" class="nav-button prev-button">← Taller Matemáticas</a>
+            <a href="area_naturales.html" class="nav-button next-button">Siguiente Área: C. Naturales →</a>
+        </div>
+    </main>
+
+    <footer id="main-footer">
+        <div class="footer-logo-placeholder">(LOGO Grupo Edúcate)</div>
+        <p><strong>Autor:</strong> Marlon Galvis Villa - Director de Pedagogía, Grupo Edúcate Colombia.</p>
+        <p>Taller Práctico Sociales y Ciudadanas - Taller Docente Saber 11.</p>
+    </footer>
+</body>
+</html>

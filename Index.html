@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller Docente: Potenciando Éxito en Saber 11 - Grupo Edúcate Colombia</title>
+    <!-- Barlow Condensed de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === CSS EMBEBIDO - ESTILOS GENERALES Y PARA INDEX === */
+        :root {
+            --brand-dark-blue: #17334B;
+            --brand-teal: #54BBAB;
+            --brand-orange: #F39325;
+            --brand-light-blue: #11678B;
+            --neutral-white: #ffffff;
+            --neutral-gray-light: #f8f9fa; /* Fondo general del body */
+            --neutral-gray-medium: #e9ecef; /* Para placeholders o fondos secundarios */
+            --neutral-gray-dark: #333333;   /* Texto principal oscuro */
+
+            --primary-color: var(--brand-teal);
+            --secondary-color: var(--brand-orange);
+            --header-bg: var(--brand-dark-blue);
+            --footer-bg: var(--brand-dark-blue);
+            --light-bg: var(--neutral-white); /* Fondo para tarjetas o secciones claras */
+            --dark-text: var(--neutral-gray-dark);
+            --light-text: var(--neutral-white);
+            --link-color: var(--brand-light-blue);
+            --button-bg: var(--secondary-color);
+            --button-text: var(--light-text);
+            --button-hover-bg: var(--primary-color);
+            --button-hover-text: var(--light-text);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Barlow Condensed', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: var(--neutral-gray-light);
+            font-weight: 400;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Asegura que el footer esté abajo */
+        }
+
+        /* Header para el index */
+        .main-header-index {
+            background-color: var(--header-bg);
+            color: var(--light-text);
+            padding: 0.8rem 1.5rem; /* Ajuste de padding */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            position: sticky; /* Para que se quede arriba */
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-logo-placeholder {
+             width: 160px; /* Un poco más grande */
+             height: 50px;
+             background-color: rgba(255,255,255,0.05); /* Más sutil */
+             border: 1px dashed rgba(255,255,255,0.3);
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             font-size: 0.9rem;
+             color: rgba(255,255,255,0.6);
+             border-radius: 4px;
+         }
+        .main-header-index .site-title { /* Cambié h1 a un div para más control */
+            font-size: 1.6rem; /* Ajuste de tamaño */
+            font-weight: 600; /* Barlow SemiBold */
+            margin: 0;
+            color: var(--light-text); /* Asegurar color de texto */
+        }
+
+        /* Contenido Principal del Index (Hero Section) */
+        .index-hero-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, var(--brand-teal) 0%, var(--brand-light-blue) 100%);
+            color: var(--light-text);
+        }
+        .index-hero-content .welcome-image-placeholder {
+            width: 220px; /* Más grande */
+            height: 160px;
+            background-color: rgba(0,0,0,0.15);
+            border: 2px dashed var(--light-text);
+            padding: 20px;
+            margin-bottom: 35px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .index-hero-content .welcome-image-placeholder p {
+            color: var(--light-text);
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+        .index-hero-content h2 {
+            font-size: 3rem; /* Título principal más grande */
+            margin-bottom: 20px;
+            font-weight: 700; /* Barlow Bold */
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.25);
+        }
+        .index-hero-content p.subtitle {
+            font-size: 1.4rem; /* Subtítulo más grande */
+            margin-bottom: 35px;
+            max-width: 750px;
+            color: rgba(255,255,255,0.95);
+            font-weight: 300; /* Barlow Light */
+        }
+        
+        /* Navegación/Módulos en Index */
+        .index-navigation-section { /* Renombré la clase para evitar conflicto */
+            background-color: var(--neutral-gray-light); /* Fondo claro para esta sección */
+            padding: 50px 20px; /* Más padding */
+        }
+        .index-navigation-section h3 {
+            text-align: center;
+            font-size: 2.2rem; /* Título de sección más grande */
+            color: var(--brand-dark-blue);
+            margin-bottom: 35px;
+            font-weight: 700;
+        }
+        .modules-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px; /* Más espacio */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .module-card {
+            background-color: var(--light-bg);
+            padding: 30px; /* Más padding interno */
+            border-radius: 12px; /* Bordes más suaves */
+            text-align: center;
+            border: 1px solid #ddd;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.07); /* Sombra más pronunciada */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: calc(50% - 30px); /* Para 2 columnas, ajustando por el gap */
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .module-card:hover {
+            transform: translateY(-8px); /* Efecto hover más notorio */
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        .module-card .icon-placeholder {
+            width: 75px; height: 75px; background-color: var(--primary-color); color: var(--light-text);
+            border-radius: 50%; margin: 0 auto 25px auto; display:flex; align-items:center; justify-content:center; font-size: 2.2rem; font-weight: 600;
+        }
+        .module-card h4 {
+            font-size: 1.6rem; /* Más grande */
+            color: var(--brand-dark-blue);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .module-card p {
+            font-size: 1.05rem; /* Ligeramente más grande */
+            margin-bottom: 25px;
+            color: #555;
+            flex-grow: 1;
+        }
+        .module-card .btn-explore {
+            display: inline-block;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            padding: 14px 30px; /* Botones más grandes */
+            border-radius: 30px; /* Muy redondeado */
+            text-decoration: none;
+            font-weight: 700; /* Barlow Bold */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-top: auto; /* Empuja el botón hacia abajo */
+            border: none; /* Sin borde explícito */
+        }
+        .module-card .btn-explore:hover {
+            background-color: var(--button-hover-bg);
+            color: var(--button-hover-text);
+        }
+
+        /* Footer */
+        .main-footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            text-align: center;
+            padding: 30px 15px;
+            font-size: 0.9rem;
+            margin-top: auto; /* Asegura que esté al final del body */
+        }
+        .main-footer p {
+            margin-bottom: 10px;
+            font-weight: 300; /* Barlow Light */
+        }
+        .main-footer strong {
+            font-weight: 600; /* Barlow SemiBold */
+            color: var(--light-text);
+        }
+        .footer-logo-placeholder {
+             width: 140px;
+             height: 45px;
+             background-color: rgba(255,255,255,0.05);
+             border: 1px dashed rgba(255,255,255,0.4);
+             margin: 10px auto 8px auto;
+             display:flex; align-items:center; justify-content:center;
+             font-size:0.8rem; color:rgba(255,255,255,0.6);
+             border-radius: 4px;
+        }
+
+        /* Responsividad */
+        @media (max-width: 992px) {
+            .module-card {
+                 width: calc(50% - 20px); /* Mantener 2 columnas si es posible */
+            }
+        }
+        @media (max-width: 768px) {
+            .main-header-index { flex-direction: column; text-align: center; padding: 0.8rem 1rem;}
+            .header-logo-placeholder { margin: 8px auto; }
+            .main-header-index .site-title { margin-top: 8px; font-size: 1.4rem; } /* Asegurar que el título no sea nav */
+            .index-hero-content h2 { font-size: 2.4rem; }
+            .index-hero-content p.subtitle { font-size: 1.2rem; }
+            .modules-grid {
+                /* grid-template-columns: 1fr; Ya no usamos grid aquí, usamos flex */
+                flex-direction: column; /* Apilar tarjetas */
+                align-items: center; /* Centrar tarjetas */
+            }
+             .module-card {
+                 width: 100%;
+                 max-width: 450px; /* Limitar ancho para no ser demasiado grande en tablet/móvil */
+                 margin-bottom: 25px; /* Espacio entre tarjetas apiladas */
+            }
+             .module-card:last-child {
+                 margin-bottom: 0;
+             }
+        }
+         @media (max-width: 480px) {
+            .index-hero-content h2 { font-size: 2rem; }
+            .index-hero-content p.subtitle { font-size: 1.1rem; }
+            .module-card .btn-explore { padding: 12px 22px; font-size: 1rem; }
+            .module-card h4 { font-size: 1.4rem; }
+            .module-card p { font-size: 1rem;}
+            .main-header-index .site-title { font-size: 1.3rem; }
+         }
+    </style>
+</head>
+<body>
+    <header class="main-header-index">
+        <div class="header-logo-placeholder">
+            <!-- SUGERENCIA: Inserta aquí la etiqueta <img> con tu logo Grupo Edúcate -->
+            (LOGO Grupo Edúcate)
+        </div>
+        <div class="site-title">Taller Docente: Estrategias Saber 11</div> <!-- Cambiado de h1 para evitar confusión con el h1 principal de la página -->
+    </header>
+
+    <main>
+        <section class="index-hero-content">
+            <div class="welcome-image-placeholder">
+                <p>(Imagen dinámica de portada para Taller Docente)</p>
+            </div>
+            <h2>Potenciando el Éxito en Saber 11</h2>
+            <p class="subtitle">Un espacio interactivo para el análisis profundo de la prueba, la comprensión del enfoque por competencias (DCE) y el diseño colaborativo de estrategias pedagógicas efectivas para llevar al aula.</p>
+        </section>
+        
+        <section class="index-navigation-section"> <!-- Clase específica para la sección de navegación de módulos -->
+            <h3>Módulos del Taller</h3>
+            <div class="modules-grid">
+                <article class="module-card">
+                    <div class="icon-placeholder">🗺️</div>
+                    <h4>1. Contexto Saber 11 y Enfoque por Competencias (DCE)</h4>
+                    <p>Entendiendo la estructura, los objetivos de la prueba y la metodología del Diseño Centrado en Evidencias.</p>
+                    <a href="pagina_contexto_dce.html" class="btn-explore">Iniciar Módulo 1</a>
+                </article>
+
+                <article class="module-card">
+                    <div class="icon-placeholder">🧭</div>
+                    <h4>2. La Ruta Metodológica General y Modelado</h4>
+                    <p>Presentación detallada de las 4 Fases de la Ruta y modelado práctico con un ejemplo de Lectura Crítica.</p>
+                    <a href="pagina_ruta_modelado.html" class="btn-explore">Iniciar Módulo 2</a>
+                </article>
+
+                <article class="module-card">
+                    <div class="icon-placeholder">💡</div>
+                    <h4>3. Talleres Prácticos por Área y Estrategias de Aula</h4>
+                    <p>Aplicación de las Rutas específicas y diseño de actividades para Lectura Crítica, Matemáticas, Sociales, C. Naturales e Inglés.</p>
+                    <a href="pagina_estrategias_aula.html" class="btn-explore">Iniciar Módulo 3</a>
+                </article>
+
+                <article class="module-card">
+                    <div class="icon-placeholder">🎯</div>
+                    <h4>4. Implementación, Recursos y La Meta Compartida</h4>
+                    <p>Cómo llevar estas estrategias al aula de forma sostenible, recursos de apoyo y nuestro objetivo común.</p>
+                    <a href="pagina_implementacion_meta.html" class="btn-explore">Iniciar Módulo 4</a>
+                </article>
+            </div>
+             <p style="text-align:center; margin-top:35px; font-size:1.05rem; color: var(--dark-text);"><em>Dentro de "Talleres Prácticos por Área" (accesible desde el Módulo 3) encontrarás el desglose y los ejemplos para cada componente de la prueba Saber 11.</em></p>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-logo-placeholder">
+            (LOGO Grupo Edúcate)
+        </div>
+        <p><strong>Autor:</strong> Marlon Galvis Villa - Director de Pedagogía, Grupo Edúcate Colombia.</p>
+        <p>Material para el Taller Docente Saber 11. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

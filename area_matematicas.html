@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller Práctico: Matemáticas - Taller Docente</title>
+    <!-- Barlow Condensed de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === CSS EMBEBIDO - MISMOS ESTILOS GLOBALES === */
+        :root {
+            --brand-dark-blue: #17334B; --brand-teal: #54BBAB; --brand-orange: #F39325; --brand-light-blue: #11678B;
+            --neutral-white: #ffffff; --neutral-gray-light: #f8f9fa; --neutral-gray-dark: #333333; --neutral-gray-medium: #e9ecef;
+            --primary-color: var(--brand-teal); --secondary-color: var(--brand-orange); --header-bg: var(--brand-dark-blue);
+            --footer-bg: var(--brand-dark-blue); --light-bg: var(--neutral-white); --dark-text: var(--neutral-gray-dark);
+            --light-text: var(--neutral-white); --link-color: var(--brand-light-blue);
+            --button-bg: var(--secondary-color); --button-text: var(--light-text); --button-hover-bg: var(--primary-color);
+            --button-hover-text: var(--light-text); --placeholder-bg: var(--neutral-gray-medium); --placeholder-border: #ced4da;
+            --code-bg: #fef0e6; --code-border: #ffe5c4; --code-text: #D94D15;
+            --ruta-paso-bg: #e6f7ff; --ruta-paso-border: var(--brand-light-blue);
+            --guided-practice-bg: #fffbe6; --guided-practice-border: #ffe58f;
+            --independent-practice-bg: #e7f5ff; --independent-practice-border: #91d5ff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+        body { font-family: 'Barlow Condensed', sans-serif; line-height: 1.7; color: var(--dark-text); background-color: var(--neutral-gray-light); font-weight: 400; }
+        
+        .page-header { background-color: var(--header-bg); color: var(--light-text); padding: 0.8rem 1.5rem; position: sticky; top: 0; z-index: 1000; width: 100%; box-shadow: 0 3px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: space-between; }
+        .header-logo-placeholder { width: 150px; height: 45px; background-color: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 300; border-radius: 4px; color: rgba(255,255,255,0.7); }
+        .page-header nav ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: flex-end; margin: 0; padding: 0; }
+        .page-header nav ul li { margin: 0.2rem 0.4rem; }
+        .page-header nav ul li a { color: var(--light-text); text-decoration: none; font-weight: 600; padding: 0.6rem 1rem; border-radius: 4px; transition: background-color 0.3s ease, color 0.3s ease; font-size: 0.95rem; white-space: nowrap;}
+        .page-header nav ul li a:hover, .page-header nav ul li a:focus { background-color: var(--button-bg); color: var(--button-text); outline: none; }
+        .page-header .nav-item.back-to-index a { background-color: var(--secondary-color); color: var(--light-text); font-weight: 700; }
+        .page-header .nav-item.back-to-index a:hover { background-color: var(--primary-color); }
+        .page-header .nav-item.back-to-module a { background-color: var(--primary-color); color: var(--light-text); font-weight: 700; }
+        .page-header .nav-item.back-to-module a:hover { background-color: var(--secondary-color); }
+
+        .page-main-content { max-width: 1000px; margin: 35px auto; padding: 35px; background-color: var(--light-bg); box-shadow: 0 5px 25px rgba(0,0,0,0.1); border-radius: 12px; }
+        .page-title { color: var(--brand-dark-blue); margin-bottom: 35px; font-size: 2.6rem; text-align: center; font-weight: 700; padding-bottom: 15px; border-bottom: 3px solid var(--primary-color); }
+        .page-main-content h3 { color: var(--secondary-color); margin-top: 40px; margin-bottom: 20px; font-size: 1.9rem; font-weight: 700; border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; display: inline-block; }
+        .page-main-content h4 { color: var(--brand-light-blue); margin-top: 25px; margin-bottom: 12px; font-size: 1.5rem; font-weight: 600; }
+        .page-main-content h5 { color: var(--brand-dark-blue); font-weight: 600; font-size: 1.2rem; margin-top: 15px; margin-bottom: 8px; }
+        .page-main-content p, .page-main-content ul, .page-main-content ol { margin-bottom: 20px; font-size: 1.15rem; color: var(--dark-text); }
+        .page-main-content ul, .page-main-content ol { padding-left: 40px; } .page-main-content li { margin-bottom: 12px; }
+        .page-main-content strong { font-weight: 700; color: var(--brand-dark-blue); }
+        .page-main-content .emphasis { background-color: var(--code-bg); padding: 3px 7px; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif; color: var(--code-text); border: 1px solid var(--code-border); font-weight: 600; }
+        .image-placeholder-page { background-color: var(--placeholder-bg); border: 2px dashed var(--placeholder-border); padding: 30px; margin: 0 auto 35px auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; min-height: 200px; max-width: 750px; text-align: center; color: #6c757d; font-style: italic; font-weight: 300;}
+        
+        .ruta-paso-container { margin-bottom: 30px; }
+        .ruta-paso { background-color: var(--ruta-paso-bg); border-left: 6px solid var(--ruta-paso-border); padding: 20px; border-radius: 0 8px 8px 0; box-shadow: 2px 2px 8px rgba(0,0,0,0.05); }
+        .ruta-paso h4 { color: var(--ruta-paso-border); margin-top: 0; font-size: 1.6rem; font-weight: 700; margin-bottom: 15px; }
+        .ruta-paso p, .ruta-paso ul { font-size: 1.1rem; } .ruta-paso ul { list-style-type: disc; } .ruta-paso ul li { margin-bottom: 8px; }
+        .ruta-paso .sub-item { font-weight: 600; color: var(--brand-dark-blue); margin-top: 10px; display: block; }
+
+        .example-question-container { background-color: #fff; border: 1px solid #ddd; border-left: 5px solid var(--secondary-color); padding: 20px; margin: 25px 0; border-radius: 8px; box-shadow: 2px 2px 8px rgba(0,0,0,0.05); }
+        .example-question-container > h4 { color: var(--brand-dark-blue); margin-top: 0; border-bottom: 1px solid var(--brand-dark-blue); padding-bottom: 5px; font-size: 1.4rem;}
+        .example-question-container .context-text { background-color: #f9f9f9; padding: 15px; border-radius: 4px; margin-bottom: 15px; border: 1px solid #eee; font-size: 1rem; line-height: 1.5; }
+        .example-question-container .question-title { font-weight: 700; margin-bottom: 10px; color: var(--header-bg); display: block; font-size: 1.1rem; }
+        .example-question-container ol.options { list-style-type: upper-alpha; padding-left: 25px; margin-top: 10px; }
+        .example-question-container ol.options li { margin-bottom: 8px; font-size: 1.05rem; }
+        .correct-answer-box { border: 2px solid var(--accent-color); background-color: #e6ffed; padding: 12px; margin-top: 15px; border-radius: 5px; font-weight: 600; }
+        .correct-answer-box strong { color: var(--accent-color); }
+        .prompt { font-style: italic; color: var(--link-color); margin: 10px 0; display: block; background-color: #f0f8ff; padding: 10px; border-radius: 4px; border-left: 4px solid var(--link-color); font-size: 1.05rem;}
+        .practice-box { margin-top: 25px; padding: 20px; border-radius: 8px; }
+        .guided-practice { background-color: var(--guided-practice-bg); border: 1px solid var(--guided-practice-border); }
+        .independent-practice { background-color: var(--independent-practice-bg); border: 1px solid var(--independent-practice-border); }
+        /* Para imágenes dentro de preguntas */
+        .question-image { max-width: 400px; display: block; margin: 15px auto; border: 1px solid #ccc; border-radius: 4px; }
+
+
+        .nav-buttons-container { display: flex; justify-content: space-between; margin-top: 40px; }
+        .nav-button { display: inline-block; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 1.1rem; transition: all 0.3s ease; }
+        .prev-button { background-color: var(--neutral-gray-medium); color: var(--dark-text); border: 1px solid var(--placeholder-border); }
+        .prev-button:hover { background-color: #d3d9df; }
+        .next-button { background-color: var(--button-bg); color: var(--button-text); }
+        .next-button:hover { background-color: var(--button-hover-bg); color: var(--button-hover-text); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+
+        #main-footer { background-color: var(--footer-bg); color: #bdc3c7; text-align: center; padding: 25px 15px; margin-top: 40px; font-size: 0.9rem; }
+        #main-footer p { margin-bottom: 8px; font-weight: 300; } #main-footer strong { font-weight: 600; color: var(--light-text); }
+        .footer-logo-placeholder { width: 120px; height: 40px; background-color: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.4); margin: 10px auto 5px auto; display:flex; align-items:center; justify-content:center; font-size:0.7rem; border-radius: 4px;}
+
+        @media (max-width: 768px) { /* Mismos media queries que antes */ }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="header-logo-placeholder">
+            (LOGO Grupo Edúcate)
+        </div>
+        <nav>
+            <ul>
+                <li class="nav-item back-to-index"><a href="index.html">← Inicio Taller</a></li>
+                <li class="nav-item back-to-module"><a href="pagina_estrategias_aula.html">← Módulos por Área</a></li>
+                <li class="nav-item"><a href="area_lectura_critica.html">Lectura Crítica</a></li>
+                <li class="nav-item"><a href="area_sociales.html">Sociales</a></li>
+                <!-- Añadir más enlaces a otras áreas -->
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page-main-content">
+        <h2 class="page-title">Taller Práctico: Dominando Matemáticas 📐</h2>
+
+        <div class="image-placeholder-page">
+            <p>(Imagen representativa de Matemáticas: Fórmulas, gráficos, regla y compás, calculadora)</p>
+        </div>
+
+        <h3>A. La Ruta Metodológica del Razonamiento Matemático (Saber 11)</h3>
+        <p>Resolver problemas matemáticos en Saber 11 requiere más que solo conocer fórmulas; exige un proceso de razonamiento estructurado. La <strong>Ruta del Razonamiento Matemático</strong> de Grupo Edúcate Colombia se organiza en cuatro fases clave:</p>
+        
+        <!-- Fase 1: DECONSTRUCCIÓN -->
+        <div class="ruta-paso-container">
+            <div class="ruta-paso" style="border-left-color: var(--brand-orange);">
+                <h4 style="color: var(--brand-orange);">FASE 1: DECONSTRUCCIÓN (Entender el Problema y sus Datos)</h4>
+                <p><strong>Objetivo Pedagógico (Docente):</strong> Asegurar que el estudiante logre una comprensión profunda del escenario matemático, la pregunta específica y los datos proporcionados.</p>
+                <h5>Acciones del Estudiante:</h5>
+                <ul>
+                    <li><strong>Lectura y Visualización del Contexto:</strong> Leer atentamente el enunciado. Analizar gráficos, tablas, figuras o diagramas asociados. Identificar el contexto del problema (científico, social, personal, puramente matemático, etc.).</li>
+                    <li><strong>Identificar la Pregunta/Objetivo:</strong> ¿Qué me están pidiendo calcular, encontrar, determinar, comparar o demostrar <span class="emphasis">exactamente</span>?</li>
+                    <li><strong>Identificar Palabras y Datos Clave:</strong> Subrayar o listar los datos numéricos, variables (conocidas y desconocidas), unidades de medida, condiciones, restricciones explícitas y términos matemáticos clave (ej: promedio, área, probabilidad, pendiente, función, ecuación, etc.).</li>
+                    <li><strong>Parafrasear el Problema (si es necesario):</strong> Reformular la situación y la pregunta con palabras propias para verificar la comprensión integral.</li>
+                </ul>
+                <h5>Guía del Docente:</h5>
+                <ul>
+                    <li>Modelar cómo extraer información de diversos formatos (texto, tabla, gráfico, figura geométrica).</li>
+                    <li>Enfatizar la diferencia entre datos relevantes e irrelevantes para la solución del problema.</li>
+                    <li>Practicar la identificación clara de la incógnita o el objetivo final que se busca.</li>
+                    <li>Usar <span class="emphasis">PO</span>: <em>"¿De qué trata la situación?", "¿Qué información te da este gráfico/tabla?", "¿Qué te piden hallar?", "¿Qué datos numéricos son importantes?", "¿Hay alguna condición especial?", "¿Puedes explicarme el problema con tus palabras?".</em></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fase 2: ESTRATEGIA Y MODELACIÓN -->
+         <div class="ruta-paso-container">
+            <div class="ruta-paso" style="border-left-color: var(--brand-light-blue);">
+                <h4 style="color: var(--brand-light-blue);">FASE 2: ESTRATEGIA Y MODELACIÓN (Planificar la Solución)</h4>
+                <p><strong>Objetivo Pedagógico (Docente):</strong> Guiar al estudiante para que seleccione el enfoque matemático y las herramientas (conceptos, fórmulas, procedimientos) más adecuadas para resolver el problema planteado.</p>
+                <h5>Acciones del Estudiante:</h5>
+                <ul>
+                    <li><strong>Conectar con Conceptos Matemáticos:</strong> ¿Qué área de las matemáticas se relaciona con este problema (Aritmética, Álgebra, Geometría, Trigonometría, Cálculo, Estadística, Probabilidad)? ¿Qué conceptos, fórmulas, teoremas o propiedades específicas necesito aplicar?</li>
+                    <li><strong>Diseñar un Plan/Modelo:</strong> ¿Cómo voy a resolver esto? ¿Necesito plantear una ecuación o sistema de ecuaciones? ¿Debo usar una fórmula específica? ¿Es útil dibujar un diagrama adicional, construir una tabla, o interpretar directamente el gráfico? ¿Qué procedimiento estadístico o probabilístico es el adecuado?</li>
+                    <li><strong>Anticipar Pasos:</strong> Esbozar (mentalmente o por escrito) la secuencia de pasos lógicos y matemáticos necesarios para ejecutar el plan.</li>
+                </ul>
+                <h5>Guía del Docente:</h5>
+                <ul>
+                    <li>Ayudar a los estudiantes a reconocer patrones en los problemas y asociarlos con los conceptos y estrategias matemáticas pertinentes.</li>
+                    <li>Discutir diferentes vías de solución para un mismo problema (si existen) y analizar su eficiencia.</li>
+                    <li>Modelar cómo traducir una situación verbal o un contexto gráfico a una expresión, ecuación o modelo matemático.</li>
+                    <li>Usar <span class="emphasis">PO</span>: <em>"¿Qué tema de matemáticas te recuerda este problema?", "¿Qué fórmula o propiedad podría ser útil aquí?", "¿Cuál sería tu primer paso para resolverlo?", "¿Qué estrategia matemática vas a usar y por qué?", "¿Hay otra forma de plantearlo?".</em></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fase 3: EJECUCIÓN Y CÁLCULO -->
+        <div class="ruta-paso-container">
+            <div class="ruta-paso" style="border-left-color: var(--accent-color);">
+                <h4 style="color: var(--accent-color);">FASE 3: EJECUCIÓN Y CÁLCULO (Realizar las Operaciones)</h4>
+                <p><strong>Objetivo Pedagógico (Docente):</strong> Asegurar que el estudiante aplique los procedimientos matemáticos seleccionados de manera precisa, ordenada y eficiente.</p>
+                <h5>Acciones del Estudiante:</h5>
+                <ul>
+                    <li><strong>Realizar Operaciones:</strong> Ejecutar los cálculos aritméticos, algebraicos, geométricos o estadísticos definidos en el plan de la Fase 2.</li>
+                    <li><strong>Seguir el Procedimiento:</strong> Trabajar paso a paso, manteniendo el orden y la claridad en el desarrollo (incluso si se usa una hoja de borrador).</li>
+                    <li><strong>Manejar Unidades:</strong> Prestar atención a las unidades de medida involucradas y asegurarse de que sean consistentes a lo largo del proceso y en la respuesta final.</li>
+                    <li><strong>Verificar Cálculos Intermedios:</strong> Si es un proceso largo con varios pasos, revisar operaciones clave para minimizar errores de arrastre que puedan invalidar el resultado final.</li>
+                </ul>
+                <h5>Guía del Docente:</h5>
+                <ul>
+                    <li>Reforzar la importancia de la precisión en las operaciones básicas y en el manejo correcto de fórmulas y algoritmos.</li>
+                    <li>Enseñar estrategias de organización del trabajo, especialmente en problemas complejos con múltiples pasos (ej: anotar claramente cada paso, usar esquemas).</li>
+                    <li>Fomentar el uso adecuado de la calculadora si está permitido (aunque Saber 11 generalmente no lo permite para las pruebas académicas, es una buena práctica formativa para otros contextos). Sin embargo, enfatizar la importancia del cálculo mental y la estimación.</li>
+                    <li>Usar <span class="emphasis">PO</span>: <em>"¿Estás seguro de esa operación?", "¿Revisaste los signos?", "¿Las unidades son correctas en este paso?", "¿Seguiste todos los pasos de tu plan?".</em></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fase 4: VALIDACIÓN Y SELECCIÓN -->
+         <div class="ruta-paso-container">
+            <div class="ruta-paso" style="border-left-color: var(--brand-purple, #521537);">
+                <h4 style="color: var(--brand-purple, #521537);">FASE 4: VALIDACIÓN Y SELECCIÓN (Comprobar y Elegir Respuesta)</h4>
+                <p><strong>Objetivo Pedagógico (Docente):</strong> Guiar al estudiante para que asegure que la respuesta obtenida sea matemáticamente correcta, lógicamente coherente con el contexto del problema, y para que seleccione la opción correspondiente de manera acertada.</p>
+                <h5>Acciones del Estudiante:</h5>
+                <ul>
+                    <li><strong>Evaluar la Razonabilidad de la Respuesta:</strong> ¿El resultado tiene sentido en el contexto del problema? (Ej: ¿Una probabilidad puede ser mayor que 1? ¿Una longitud puede ser negativa? ¿El resultado es del orden de magnitud esperado?).</li>
+                    <li><strong>Verificar la Respuesta (si es posible y práctico):</strong> ¿Puedo comprobar mi resultado sustituyéndolo en alguna ecuación original? ¿Puedo usar un método alternativo simple para ver si obtengo una respuesta similar? ¿Concuerda con alguna estimación inicial?</li>
+                    <li><strong>Comparar con las Opciones de Respuesta:</strong> Buscar la opción de respuesta (A, B, C, D) que coincida <span class="emphasis">exactamente</span> con el resultado validado.</li>
+                    <li><strong>Analizar Distractores Matemáticos:</strong> Si la respuesta obtenida no coincide con ninguna opción, o si hay dudas, revisar las opciones incorrectas. ¿Representan errores comunes de cálculo (signos, operaciones), de aplicación de fórmula, de interpretación de unidades, o de comprensión del problema?</li>
+                    <li><strong>Seleccionar y Justificar (Argumentación):</strong> Elegir la opción correcta y ser capaz de explicar (al menos mentalmente) por qué esa es la respuesta y por qué el procedimiento utilizado es válido y los demás son incorrectos o menos adecuados.</li>
+                </ul>
+                <h5>Guía del Docente:</h5>
+                <ul>
+                    <li>Enseñar técnicas de estimación y verificación de resultados para que los estudiantes puedan autoevaluar la razonabilidad de sus respuestas.</li>
+                    <li>Discutir errores comunes específicos de matemáticas y cómo estos se reflejan en los distractores de las preguntas tipo Saber 11.</li>
+                    <li>Vincular la justificación de la respuesta con la competencia de Argumentación del ICFES, fomentando que los estudiantes expliquen el <span class="emphasis">porqué</span> de sus soluciones.</li>
+                    <li>Usar <span class="emphasis">PO</span>: <em>"¿Este resultado parece lógico para la situación planteada?", "¿Cómo podrías comprobar rápidamente si es correcto?", "¿Tu respuesta coincide exactamente con alguna de las opciones?", "¿Por qué las otras opciones son incorrectas (qué error matemático representan)?", "¿Puedes explicar por qué tu método te lleva a la respuesta correcta para este problema?".</em></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr style="margin: 40px 0 30px 0; border-width: 1.5px; border-color: var(--primary-color); border-style: dashed;">
+
+        <!-- INICIO DEL CONTENIDO DE MODELADO, GUIADO E INDEPENDIENTE PARA MATEMÁTICAS -->
+        <h3>B. Aplicación Práctica de la Ruta del Razonamiento Matemático</h3>
+        
+        <h4>1. Modelado Docente: Aplicando la Ruta Paso a Paso</h4>
+        <p>Observemos la aplicación de esta ruta con un ejemplo de la prueba.</p>
+        <div class="example-question-container">
+            <h4>Pregunta Modelo (Tomada de ICFES 2024 - Pregunta 3, Sesión 1, pág. 2)</h4>
+            <div class="context-text">
+                <p><strong>Contexto:</strong></p>
+                <!-- SUGERENCIA: Insertar aquí la IMAGEN de la caja con las áreas 6cm², 8cm², 12cm² (pregunta 3, sesión 1) -->
+                <img src="placeholder-imagen-caja.png" alt="Caja con áreas de sus caras" class="question-image">
+                 <p>Una caja de cartón para empaque se diseña con todas sus caras rectangulares. La figura muestra el área superficial de tres de sus caras.</p>
+            </div>
+            <span class="question-title">Pregunta 3:</span>
+            <p><strong>¿Cuál es el área superficial de la caja?</strong></p>
+            <ol class="options">
+                <li>A. 52 cm²</li>
+                <li>B. 48 cm²</li>
+                <li>C. 26 cm²</li>
+                <li>D. 24 cm²</li>
+            </ol>
+            <div class="correct-answer-box"><strong>Respuesta Correcta (ICFES): A</strong></div>
+            <h5 style="margin-top:15px;">Desarrollo Detallado de la Ruta (Modelado por el Facilitador):</h5>
+            <ol>
+                <li><strong>PASO 1 (Deconstrucción):</strong>
+                    <ul>
+                        <li><strong>Contexto:</strong> Una caja de cartón con caras rectangulares. Se muestran las áreas de TRES de sus caras: 6 cm², 8 cm², 12 cm².</li>
+                        <li><strong>Pregunta/Objetivo:</strong> Calcular el ÁREA SUPERFICIAL TOTAL de la caja.</li>
+                        <li><strong>Datos Clave:</strong> Áreas de tres caras distintas: A₁=6, A₂=8, A₃=12 (las unidades son cm²).</li>
+                    </ul>
+                </li>
+                <li><strong>PASO 2 (Estrategia y Modelación):</strong>
+                    <ul>
+                        <li><strong>Conceptos:</strong> Una caja rectangular (paralelepípedo) tiene 6 caras, y las caras opuestas son iguales. Por lo tanto, tiene 3 pares de caras iguales. Las tres áreas dadas deben corresponder a las tres caras diferentes.</li>
+                        <li>Si las dimensiones de la caja son largo (l), ancho (a) y alto (h), las áreas de las tres caras diferentes son: <code>l*a</code>, <code>l*h</code>, y <code>a*h</code>. Entonces, tenemos que 6, 8 y 12 son estos productos.</li>
+                        <li><strong>Plan:</strong> El área superficial total de la caja es la suma de las áreas de sus 6 caras. Como hay 3 pares de caras iguales, el área total será <code>2 * (ÁreaCara1 + ÁreaCara2 + ÁreaCara3)</code>. Las tres áreas dadas (6, 8, 12) son precisamente las áreas de las tres caras diferentes.</li>
+                    </ul>
+                </li>
+                <li><strong>PASO 3 (Ejecución y Cálculo):</strong>
+                    <ul>
+                        <li>Área Superficial Total = 2 * (6 cm² + 8 cm² + 12 cm²)</li>
+                        <li>Suma de las tres áreas diferentes: 6 + 8 + 12 = 26 cm²</li>
+                        <li>Multiplicar por 2 (porque cada cara tiene una opuesta igual): 2 * 26 cm² = 52 cm²</li>
+                    </ul>
+                </li>
+                <li><strong>PASO 4 (Validación y Selección):</strong>
+                    <ul>
+                        <li><strong>Razonabilidad:</strong> El resultado (52 cm²) es mayor que la suma de las tres áreas visibles (26 cm²), lo cual es lógico ya que faltaban las caras opuestas. Las unidades (cm²) son correctas para un área.</li>
+                        <li><strong>Comparar con Opciones:</strong> La opción A es 52 cm².</li>
+                        <li><strong>Distractores:</strong> La opción C (26 cm²) es solo la suma de las tres áreas dadas, sin considerar las caras opuestas (error común). Las otras opciones no parecen derivarse de un error lógico obvio con estos datos.</li>
+                        <li><strong>Selección:</strong> La opción A es la correcta.</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <hr style="margin: 40px 0 30px 0; border-width: 1.5px; border-color: var(--primary-color); border-style: dashed;">
+        
+        <h3>C. Práctica Guiada: ¡Apliquemos la Ruta Juntos!</h3>
+        <p>Como docentes, vamos a trabajar colaborativamente en esta pregunta, siguiendo las fases de la Ruta Matemática.</p>
+        <div class="example-question-container practice-box guided-practice">
+            <h4>Pregunta Guiada (Tomada de ICFES 2024 - Pregunta 17, Sesión 1, pág. 7)</h4>
+            <div class="context-text">
+                <p><strong>Contexto:</strong></p>
+                <p>Una empresa de compra y venta de mercancía vende regularmente 40 piezas por un precio unitario de $30. Cuando se venden más de 40, y menos de 80 piezas, se usa el siguiente procedimiento para determinar el porcentaje correspondiente a las ventas por encima de la cantidad regular:</p>
+                <ul>
+                    <li><strong>Paso 1.</strong> Calcular el valor regular de las ventas; precio unitario multiplicado por 40, que es la cantidad de piezas vendidas regularmente.</li>
+                    <li><strong>Paso 2.</strong> Calcular el valor de ventas adicionales; el total de piezas vendidas menos 40 y este resultado multiplicado por $30, que es el precio unitario.</li>
+                    <li><strong>Paso 3.</strong> Dividir el resultado del paso 2 entre el resultado del paso 1.</li>
+                </ul>
+            </div>
+            <span class="question-title">Pregunta 17:</span>
+            <p><strong>¿Qué características tienen los resultados que se pueden obtener al usar este procedimiento?</strong></p>
+            <ol class="options">
+                <li>A. Son valores negativos.</li>
+                <li>B. Son valores mayores que 1.200.</li>
+                <li>C. Son valores entre 0 y 1.</li>
+                <li>D. Son valores entre 1 y 40.</li>
+            </ol>
+            <div class="correct-answer-box" style="margin-top:15px; background-color:#fff9e6; border-color:#ffd566;">
+                <strong>Respuesta Correcta (A construir en grupo):</strong> [ Guía: Pensar en los valores mínimos y máximos de piezas vendidas según el contexto (41 a 79) y ver qué resultado da el procedimiento. ]
+            </div>
+            <h5 style="margin-top:15px;">Guía para Aplicar la Ruta (Discusión Docente):</h5>
+            <p class="prompt"><strong>Paso 1 (Deconstrucción):</strong> ¿Qué información clave da el problema sobre el procedimiento? (Valor regular, valor adicional, división). ¿Cuál es el rango de piezas para el que aplica este procedimiento? (Más de 40 y menos de 80, es decir, de 41 a 79 piezas).</p>
+            <p class="prompt"><strong>Paso 2 (Estrategia/Modelación):</strong> El resultado del procedimiento es un porcentaje (Paso 2 / Paso 1). ¿Cómo podemos escribir esto como una fórmula general usando 'P' para el número de piezas vendidas? Plan: Establecer la fórmula y analizarla para el rango de P (41 ≤ P ≤ 79).</p>
+            <p class="prompt"><strong>Paso 3 (Ejecución/Cálculo - ¡A trabajar en grupo!):</strong>
+                <br>1. Valor Paso 1 = 40 * $30 = $1200 (Constante).
+                <br>2. Valor Paso 2 = (P - 40) * $30.
+                <br>3. Resultado = [(P - 40) * $30] / $1200. Simplifiquen esta expresión.
+                <br>4. Ahora, evalúen el Resultado para P = 41 (el mínimo de piezas adicionales).
+                <br>5. Evalúen el Resultado para P = 79 (el máximo de piezas adicionales).
+                <br>¿Qué rango de valores obtiene el Resultado? Con base en esto, analicen las opciones A, B, C, D.
+            </p>
+            <p class="prompt"><strong>Paso 4 (Validación/Selección):</strong> ¿El rango que encontraron para el Resultado se ajusta a alguna de las opciones? ¿Por qué se descartan las otras? ¡Justifiquen su elección!</p>
+        </div>
+
+        <hr style="margin: 40px 0 30px 0; border-width: 1.5px; border-color: var(--primary-color); border-style: dashed;">
+
+        <h3>D. Práctica Independiente: Desafío para los Docentes</h3>
+        <p>Como ejercicio final para este módulo, apliquen individualmente o en pequeños grupos la Ruta Matemática completa para resolver la siguiente pregunta. Discutan cada paso.</p>
+        <div class="example-question-container practice-box independent-practice">
+            <h4>Pregunta Independiente (Tomada de ICFES 2024 - Pregunta 25, Sesión 1, pág. 11)</h4>
+            <div class="context-text">
+                <p><strong>Contexto:</strong></p>
+                <!-- SUGERENCIA: Insertar aquí la IMAGEN del triángulo sombreado (pregunta 25, sesión 1) -->
+                <img src="placeholder-triangulo-pregunta25.png" alt="Triángulo sombreado con dimensiones" class="question-image">
+            </div>
+            <span class="question-title">Pregunta 25:</span>
+            <p><strong>Se necesita encontrar el área del triángulo sombreado: ¿Cuál es el área del triángulo?</strong></p>
+            <ol class="options">
+                <li>A. 15 m²</li>
+                <li>B. 12 m²</li>
+                <li>C. 6 m²</li>
+                <li>D. 5√2 m²</li>
+            </ol>
+            <p class="prompt" style="font-weight:600; color:var(--brand-dark-blue);"><strong>¡Su Desafío!</strong> Apliquen los 4 pasos de la Ruta Matemática. Presten atención a la figura: ¿Es un triángulo rectángulo? ¿Cuáles son su base y su altura? ¿Qué fórmula usarán? Verifiquen las unidades. ¡Justifiquen su respuesta!</p>
+            <!-- No se muestra la respuesta correcta aquí -->
+        </div>
+
+        <div class="nav-buttons-container">
+            <a href="area_lectura_critica.html" class="nav-button prev-button">← Taller Lectura Crítica</a>
+            <a href="area_sociales.html" class="nav-button next-button">Siguiente Área: Sociales →</a>
+        </div>
+    </main>
+
+    <footer id="main-footer">
+        <div class="footer-logo-placeholder">(LOGO Grupo Edúcate)</div>
+        <p><strong>Autor:</strong> Marlon Galvis Villa - Director de Pedagogía, Grupo Edúcate Colombia.</p>
+        <p>Taller Práctico Matemáticas - Taller Docente Saber 11.</p>
+    </footer>
+</body>
+</html>

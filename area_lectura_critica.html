@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller Práctico: Lectura Crítica - Taller Docente</title>
+    <!-- Barlow Condensed de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === CSS EMBEBIDO - MISMOS ESTILOS GLOBALES === */
+        :root {
+            --brand-dark-blue: #17334B; --brand-teal: #54BBAB; --brand-orange: #F39325; --brand-light-blue: #11678B;
+            --neutral-white: #ffffff; --neutral-gray-light: #f8f9fa; --neutral-gray-dark: #333333; --neutral-gray-medium: #e9ecef;
+            --primary-color: var(--brand-teal); --secondary-color: var(--brand-orange); --header-bg: var(--brand-dark-blue);
+            --footer-bg: var(--brand-dark-blue); --light-bg: var(--neutral-white); --dark-text: var(--neutral-gray-dark);
+            --light-text: var(--neutral-white); --link-color: var(--brand-light-blue);
+            --button-bg: var(--secondary-color); --button-text: var(--light-text); --button-hover-bg: var(--primary-color);
+            --button-hover-text: var(--light-text); --placeholder-bg: var(--neutral-gray-medium); --placeholder-border: #ced4da;
+            --code-bg: #fef0e6; --code-border: #ffe5c4; --code-text: #D94D15;
+            --ruta-paso-bg: #e6f7ff; /* Azul muy claro para cada paso de la ruta */
+            --ruta-paso-border: var(--brand-light-blue);
+            --guided-practice-bg: #fffbe6; /* Amarillo muy pálido para práctica guiada */
+            --guided-practice-border: #ffe58f;
+            --independent-practice-bg: #e7f5ff; /* Azul muy pálido para práctica independiente */
+            --independent-practice-border: #91d5ff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; } html { scroll-behavior: smooth; }
+        body { font-family: 'Barlow Condensed', sans-serif; line-height: 1.7; color: var(--dark-text); background-color: var(--neutral-gray-light); font-weight: 400; }
+        
+        .page-header { background-color: var(--header-bg); color: var(--light-text); padding: 0.8rem 1.5rem; position: sticky; top: 0; z-index: 1000; width: 100%; box-shadow: 0 3px 6px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: space-between; }
+        .header-logo-placeholder { width: 150px; height: 45px; background-color: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 300; border-radius: 4px; color: rgba(255,255,255,0.7); }
+        .page-header nav ul { list-style: none; display: flex; flex-wrap: wrap; justify-content: flex-end; margin: 0; padding: 0; }
+        .page-header nav ul li { margin: 0.2rem 0.4rem; }
+        .page-header nav ul li a { color: var(--light-text); text-decoration: none; font-weight: 600; padding: 0.6rem 1rem; border-radius: 4px; transition: background-color 0.3s ease, color 0.3s ease; font-size: 0.95rem; white-space: nowrap;}
+        .page-header nav ul li a:hover, .page-header nav ul li a:focus { background-color: var(--button-bg); color: var(--button-text); outline: none; }
+        .page-header .nav-item.back-to-index a { background-color: var(--secondary-color); color: var(--light-text); font-weight: 700; }
+        .page-header .nav-item.back-to-index a:hover { background-color: var(--primary-color); }
+        .page-header .nav-item.back-to-module a { background-color: var(--primary-color); color: var(--light-text); font-weight: 700; }
+        .page-header .nav-item.back-to-module a:hover { background-color: var(--secondary-color); }
+
+
+        .page-main-content { max-width: 1000px; margin: 35px auto; padding: 35px; background-color: var(--light-bg); box-shadow: 0 5px 25px rgba(0,0,0,0.1); border-radius: 12px; }
+        .page-title { color: var(--brand-dark-blue); margin-bottom: 35px; font-size: 2.6rem; text-align: center; font-weight: 700; padding-bottom: 15px; border-bottom: 3px solid var(--primary-color); }
+        .page-main-content h3 { color: var(--secondary-color); margin-top: 40px; margin-bottom: 20px; font-size: 1.9rem; font-weight: 700; border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; display: inline-block; }
+        .page-main-content h4 { color: var(--brand-light-blue); margin-top: 25px; margin-bottom: 12px; font-size: 1.5rem; font-weight: 600; }
+        .page-main-content h5 { color: var(--brand-dark-blue); font-weight: 600; font-size: 1.2rem; margin-top: 15px; margin-bottom: 8px; }
+        .page-main-content p, .page-main-content ul, .page-main-content ol { margin-bottom: 20px; font-size: 1.15rem; color: var(--dark-text); }
+        .page-main-content ul, .page-main-content ol { padding-left: 40px; } .page-main-content li { margin-bottom: 12px; }
+        .page-main-content strong { font-weight: 700; color: var(--brand-dark-blue); }
+        .page-main-content .emphasis { background-color: var(--code-bg); padding: 3px 7px; border-radius: 5px; font-family: 'Barlow Condensed', sans-serif; color: var(--code-text); border: 1px solid var(--code-border); font-weight: 600; }
+        .image-placeholder-page { background-color: var(--placeholder-bg); border: 2px dashed var(--placeholder-border); padding: 30px; margin: 0 auto 35px auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; min-height: 200px; max-width: 750px; text-align: center; color: #6c757d; font-style: italic; font-weight: 300;}
+        
+        .ruta-paso-container { margin-bottom: 30px; }
+        .ruta-paso { background-color: var(--ruta-paso-bg); border-left: 6px solid var(--ruta-paso-border); padding: 20px; border-radius: 0 8px 8px 0; box-shadow: 2px 2px 8px rgba(0,0,0,0.05); }
+        .ruta-paso h4 { color: var(--ruta-paso-border); margin-top: 0; font-size: 1.6rem; font-weight: 700; margin-bottom: 15px; }
+        .ruta-paso p, .ruta-paso ul { font-size: 1.1rem; } .ruta-paso ul { list-style-type: disc; } .ruta-paso ul li { margin-bottom: 8px; }
+        .ruta-paso .sub-item { font-weight: 600; color: var(--brand-dark-blue); margin-top: 10px; display: block; }
+
+        .example-question-container { background-color: #fff; border: 1px solid #ddd; border-left: 5px solid var(--secondary-color); padding: 20px; margin: 25px 0; border-radius: 8px; box-shadow: 2px 2px 8px rgba(0,0,0,0.05); }
+        .example-question-container > h4 { color: var(--brand-dark-blue); margin-top: 0; border-bottom: 1px solid var(--brand-dark-blue); padding-bottom: 5px; font-size: 1.4rem;} /* H4 para el título de la pregunta */
+        .example-question-container .context-text { background-color: #f9f9f9; padding: 15px; border-radius: 4px; margin-bottom: 15px; border: 1px solid #eee; font-size: 1rem; line-height: 1.5; }
+        .example-question-container .question-title { font-weight: 700; margin-bottom: 10px; color: var(--header-bg); display: block; font-size: 1.1rem; }
+        .example-question-container ol.options { list-style-type: upper-alpha; padding-left: 25px; margin-top: 10px; }
+        .example-question-container ol.options li { margin-bottom: 8px; font-size: 1.05rem; }
+        .correct-answer-box { border: 2px solid var(--accent-color); background-color: #e6ffed; padding: 12px; margin-top: 15px; border-radius: 5px; font-weight: 600; }
+        .correct-answer-box strong { color: var(--accent-color); }
+        .prompt { font-style: italic; color: var(--link-color); margin: 10px 0; display: block; background-color: #f0f8ff; padding: 10px; border-radius: 4px; border-left: 4px solid var(--link-color); font-size: 1.05rem;}
+        .practice-box { margin-top: 25px; padding: 20px; border-radius: 8px; }
+        .guided-practice { background-color: var(--guided-practice-bg); border: 1px solid var(--guided-practice-border); }
+        .independent-practice { background-color: var(--independent-practice-bg); border: 1px solid var(--independent-practice-border); }
+
+        .nav-buttons-container { display: flex; justify-content: space-between; margin-top: 40px; }
+        .nav-button { display: inline-block; padding: 12px 25px; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 1.1rem; transition: all 0.3s ease; }
+        .prev-button { background-color: var(--neutral-gray-medium); color: var(--dark-text); border: 1px solid var(--placeholder-border); }
+        .prev-button:hover { background-color: #d3d9df; }
+        .next-button { background-color: var(--button-bg); color: var(--button-text); }
+        .next-button:hover { background-color: var(--button-hover-bg); color: var(--button-hover-text); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+
+        #main-footer { background-color: var(--footer-bg); color: #bdc3c7; text-align: center; padding: 25px 15px; margin-top: 40px; font-size: 0.9rem; }
+        #main-footer p { margin-bottom: 8px; font-weight: 300; } #main-footer strong { font-weight: 600; color: var(--light-text); }
+        .footer-logo-placeholder { width: 120px; height: 40px; background-color: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.4); margin: 10px auto 5px auto; display:flex; align-items:center; justify-content:center; font-size:0.7rem; border-radius: 4px;}
+
+        @media (max-width: 768px) { /* Mismos media queries que antes */ }
+    </style>
+</head>
+<body>
+    <header class="page-header">
+        <div class="header-logo-placeholder">
+            (LOGO Grupo Edúcate)
+        </div>
+        <nav>
+            <ul>
+                <li class="nav-item back-to-index"><a href="index.html">← Inicio Taller</a></li>
+                <li class="nav-item back-to-module"><a href="pagina_estrategias_aula.html">← Volver a Módulos por Área</a></li>
+                <li class="nav-item"><a href="area_matematicas.html">Matemáticas</a></li>
+                <!-- Añadir más enlaces a otras áreas si es necesario para navegación rápida -->
+            </ul>
+        </nav>
+    </header>
+
+    <main class="page-main-content">
+        <h2 class="page-title">Taller Práctico: Dominando Lectura Crítica 🧐</h2>
+
+        <div class="image-placeholder-page">
+            <p>(Imagen representativa de Lectura Crítica: Libros abiertos, lupa, silueta de persona pensando profundamente sobre un texto)</p>
+        </div>
+
+        <h3>A. La Ruta Metodológica del Lector Crítico (Saber 11)</h3>
+        <p>Para enfrentar con éxito las preguntas de Lectura Crítica, que evalúan la capacidad de entender, interpretar y evaluar textos de diversa índole, la <strong>Ruta del Lector Crítico</strong> de Grupo Edúcate Colombia propone un proceso estructurado en cuatro fases. A continuación, se detalla cada fase con sus componentes clave:</p>
+        
+        <!-- Fase 1: INMERSIÓN -->
+        <div class="ruta-paso-container">
+            <div class="ruta-paso" style="border-left-color: var(--brand-orange);">
+                <h4 style="color: var(--brand-orange);">FASE 1: INMERSIÓN (Comprender el Texto y la Tarea)</h4>
+                <p><strong>Objetivo Pedagógico (Para el Docente):</strong> Asegurar que el estudiante logre una comprensión básica pero sólida del estímulo presentado (texto, gráfico, imagen, etc.) y entienda con precisión la demanda específica que le plantea la pregunta.</p>
+                <h5>Acciones del Estudiante:</h5>
+                <ul>
+                    <li><strong>Lectura Activa del Estímulo:</strong>
+                        <ul>
+                            <li>Para textos continuos: Realizar una primera lectura global para captar la idea general, el tema principal y la estructura básica del texto. Identificar el tipo de texto (narrativo, argumentativo, expositivo, descriptivo, etc.).</li>
+                            <li>Para textos discontinuos (gráficos, tablas, infografías, caricaturas): Analizar detenidamente todos sus componentes (títulos, ejes, leyendas, imágenes, símbolos, personajes, diálogos) para entender el mensaje o la información que transmiten.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Lectura Precisa y Analítica de la Pregunta:</strong>
+                        <ul>
+                            <li><span class="sub-item">Identificar el Verbo Clave:</span> ¿Qué acción mental principal se solicita? (Ej: identificar, comprender, analizar, inferir, evaluar, relacionar, comparar, etc.).</li>
+                            <li><span class="sub-item">Identificar el Objeto de la Pregunta:</span> ¿Sobre qué elemento específico del estímulo (o concepto relacionado) se está preguntando? (Ej: una palabra, una frase, un párrafo específico, la idea global, la postura del autor, una relación entre partes, un dato particular, la intención comunicativa, etc.).</li>
+                            <li><span class="sub-item">Identificar Palabras Clave y Restricciones:</span> Subrayar o resaltar mentalmente términos cruciales en la pregunta (ej: "principalmente", "excepto", "según el autor", "se puede inferir que", "la función de") o cualquier condición que limite el alcance de la respuesta.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <h5>Guía del Docente (Cómo enseñar esta fase):</h5>
+                <ul>
+                    <li>Modelar cómo realizar una lectura global rápida para identificar el tema y luego una lectura más detallada y analítica de la pregunta para desglosar su demanda.</li>
+                    <li>Enseñar a los estudiantes a identificar explícitamente el verbo clave y el objeto de la pregunta.</li>
+                    <li>Practicar la identificación de palabras clave y restricciones en los enunciados de las preguntas.</li>
+                    <li>Usar <span class="emphasis">Preguntas Orientadoras (PO)</span>:
+                        <ul>
+                            <li><em>PO Estímulo:</em> "¿De qué trata este texto/gráfico en general?", "¿Qué tipo de información nos presenta?", "¿Cómo está organizado (si es un texto discontinuo)?".</li>
+                            <li><em>PO Pregunta:</em> "¿Qué te pide hacer la pregunta <span class="emphasis">exactamente</span>?", "¿Cuál es la palabra que te indica la acción principal que debes realizar?", "¿Sobre qué parte específica del estímulo o idea debes centrarte para empezar a buscar la respuesta?".</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fase 2: CONEXIÓN -->
+        <div class="ruta-paso-container">
+             <div class="ruta-paso" style="border-left-color: var(--brand-light-blue);">
+                <h4 style="color: var(--brand-light-blue);">FASE 2: CONEXIÓN (Vincular Pregunta con Estímulo y Competencia Lectora)</h4>
+                <p><strong>Objetivo Pedagógico (Para el Docente):</strong> Enseñar al estudiante a localizar la información o las pistas relevantes dentro del estímulo que se conectan directamente con la pregunta, y a reconocer implícitamente la habilidad lectora o competencia específica que debe poner en juego para responder.</p>
+                <h5>Acciones del Estudiante:</h5>
+                <ul>
+                    <li><strong>Localizar Información/Pistas Relevantes en el Estímulo:</strong> Volver al texto o estímulo y ubicar con precisión las secciones, frases, palabras, datos específicos o elementos visuales que se relacionan <span class="emphasis">directamente</span> con lo que la pregunta formuló en la Fase 1. Esto puede implicar una relectura focalizada.</li>
+                    <li><strong>Identificar el Tipo de Razonamiento Lector Requerido:</strong> Reflexionar sobre la naturaleza de la pregunta y la información disponible:
+                        <ul>
+                            <li>¿La respuesta se encuentra <span class="emphasis">explícitamente</span> en el texto (es literal)? Implica la habilidad de <span class="emphasis">identificar y comprender</span> contenidos locales.</li>
+                            <li>¿Necesito <span class="emphasis">deducir o inferir</span> algo que no está dicho directamente, pero que el texto sugiere o permite concluir? Implica la habilidad de <span class="emphasis">comprender cómo se articulan las partes de un texto para darle un sentido global</span>, hacer inferencias.</li>
+                            <li>¿Debo <span class="emphasis">analizar</span> cómo se conectan las partes del texto, la estructura, el tipo de discurso, o las relaciones entre diferentes ideas o componentes? Implica habilidades de comprensión global y análisis estructural.</li>
+                            <li>¿Tengo que <span class="emphasis">evaluar</span> la validez de una idea, la postura del autor, la confiabilidad de una fuente (si se da), la intención comunicativa, o comparar el texto con otros contextos o conocimientos? Implica la habilidad de <span class="emphasis">reflexionar a partir de un texto y evaluar su contenido y forma</span>.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <h5>Guía del Docente (Cómo enseñar esta fase):</h5>
+                <ul>
+                    <li>Enseñar técnicas de rastreo (scanning) y localización de información clave, así como estrategias de relectura focalizada en las partes pertinentes del texto.</li>
+                    <li>Ayudar a los estudiantes a reconocer, a partir de la formulación de la pregunta y el tipo de estímulo, cuándo una pregunta demanda una respuesta literal, cuándo requiere una inferencia, o cuándo exige una evaluación crítica.</li>
+                    <li>Relacionar explícitamente la tarea de la pregunta con las competencias generales de Lectura Crítica que evalúa el ICFES (identificar contenidos locales, comprender relaciones globales, evaluar y reflexionar).</li>
+                    <li>Usar <span class="emphasis">Preguntas Orientadoras (PO)</span>:
+                        <ul>
+                            <li><em>PO Conexión:</em> "¿En qué parte <span class="emphasis">exacta</span> del estímulo encuentras la pista o la información para responder?", "¿Esta información contesta directamente lo que te preguntaron o necesitas hacer un paso más?", "¿Qué habilidad lectora (encontrar, deducir, opinar con base en el texto) necesitas usar principalmente aquí?".</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fase 3: EVALUACIÓN -->
+        <div class="ruta-paso-container">
+            <div class="ruta-paso" style="border-left-color: var(--accent-color);">
+                <h4 style="color: var(--accent-color);">FASE 3: EVALUACIÓN (Analizar Opciones y Descartar Distractores)</h4>
+                <p><strong>Objetivo Pedagógico (Para el Docente):</strong> Desarrollar en el estudiante el pensamiento crítico mediante el análisis riguroso y comparativo de cada opción de respuesta, identificando y descartando de manera fundamentada los distractores.</p>
+                <h5>Acciones del Estudiante:</h5>
+                <ul>
+                    <li><strong>Análisis Individual y Cuidadoso de CADA Opción (A, B, C, D):</strong> Leer cada una de las opciones de respuesta de forma completa y atenta. No seleccionar la primera que "suene bien" o que contenga palabras del texto sin un análisis más profundo.</li>
+                    <li><strong>Verificar Pertinencia y Respuesta Directa a la Pregunta:</strong> Para cada opción, preguntarse: ¿Esta opción responde <span class="emphasis">exacta y completamente</span> a lo que se preguntó en la Fase 1? (Es común que una opción sea una afirmación verdadera o relacionada con el texto, pero que <span class="emphasis">no sea la respuesta a la pregunta específica</span> formulada).</li>
+                    <li><strong>Buscar Sustento (o refutación) en el Estímulo:</strong> ¿Esta opción se apoya directamente en la información o pistas localizadas en la Fase 2? ¿Puedo señalar la evidencia explícita o la base para la inferencia que la valida (o la invalida) dentro del estímulo?</li>
+                    <li><strong>Análisis Fundamentado de Distractores (¡El Paso más CRUCIAL!):</strong> Para cada opción que se considere incorrecta, identificar <span class="emphasis">por qué específicamente es incorrecta</span>. Tipos comunes de distractores en Lectura Crítica incluyen:
+                        <ul>
+                            <li>Afirmaciones que <span class="emphasis">contradicen</span> la información del texto.</li>
+                            <li>Interpretaciones <span class="emphasis">erróneas o exageradas</span> de lo que dice el texto.</li>
+                            <li>Opiniones <span class="emphasis">personales no sustentadas</span> en el texto.</li>
+                            <li>Uso de información correcta del texto pero aplicada de forma <span class="emphasis">incorrecta o irrelevante</span> a la pregunta.</li>
+                            <li>Afirmaciones que van <span class="emphasis">más allá</span> de lo que el texto permite inferir o concluir.</li>
+                            <li>Generalizaciones <span class="emphasis">indebidas o simplificaciones</span> excesivas.</li>
+                            <li>Opciones que son <span class="emphasis">parcialmente correctas</span> pero incompletas, o menos precisas que la clave.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <h5>Guía del Docente (Cómo enseñar esta fase):</h5>
+                <ul>
+                    <li>Modelar el análisis sistemático de cada opción, comparándola activamente con la pregunta y la información del estímulo.</li>
+                    <li>Enseñar explícitamente los tipos comunes de distractores utilizados en pruebas estandarizadas de lectura, con ejemplos.</li>
+                    <li>Fomentar la práctica de <span class="emphasis">justificar verbalmente o por escrito por qué se descarta cada opción incorrecta</span>. No basta con decir "esta no es".</li>
+                    <li>Usar <span class="emphasis">Preguntas Orientadoras (PO)</span>:
+                        <ul>
+                            <li><em>PO Evaluación de Opciones:</em> "¿Por qué crees que la opción A es correcta (o incorrecta)?", "¿Dónde en el estímulo encuentras apoyo para (o en contra de) la opción B?", "¿Qué hace que la opción C sea una 'trampa' o un distractor ingenioso?", "¿Esta opción responde realmente a lo que se preguntó o se desvía del foco?".</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fase 4: JUSTIFICACIÓN Y SELECCIÓN -->
+         <div class="ruta-paso-container">
+            <div class="ruta-paso" style="border-left-color: var(--brand-purple, #521537);">
+                <h4 style="color: var(--brand-purple, #521537);">FASE 4: JUSTIFICACIÓN Y SELECCIÓN (Validar y Elegir la Mejor Respuesta)</h4>
+                <p><strong>Objetivo Pedagógico (Para el Docente):</strong> Consolidar la elección final del estudiante, asegurando que sea la respuesta <span class="emphasis">más adecuada, precisa, completa y mejor sustentada</span> por la evidencia textual y el razonamiento aplicado, dentro del marco de las opciones disponibles.</p>
+                <h5>Acciones del Estudiante:</h5>
+                <ul>
+                    <li><strong>Comparar Opciones Finalistas (si es necesario):</strong> Si después del análisis de la Fase 3 persiste la duda entre dos (o más) opciones que parecen plausibles, compararlas directamente entre sí: ¿Cuál de ellas está <span class="emphasis">mejor y más directamente</span> sustentada por la evidencia del estímulo? ¿Cuál responde de manera <span class="emphasis">más precisa, completa y directa</span> a la pregunta inicial, sin añadir información no solicitada o hacer suposiciones innecesarias?</li>
+                    <li><strong>Verificación de Coherencia Global y Lógica:</strong> Releer la pregunta original (Fase 1) y la opción que se está considerando como la respuesta final. ¿Existe una conexión lógica y clara entre la pregunta, el texto y esta opción? ¿La evidencia identificada en el texto es sólida y suficiente para respaldar esta opción por encima de las otras?</li>
+                    <li><strong>Seleccionar la Respuesta Definitiva con Confianza:</strong> Marcar la opción elegida, teniendo una comprensión clara de por qué es la mejor respuesta y por qué las demás fueron descartadas.</li>
+                </ul>
+                <h5>Guía del Docente (Cómo enseñar esta fase):</h5>
+                <ul>
+                    <li>Enfatizar que en las pruebas estandarizadas de Lectura Crítica se busca la <span class="emphasis">"mejor respuesta"</span> entre las opciones dadas. Esto significa que, a veces, puede haber opciones parcialmente correctas o verdaderas en un sentido general, pero solo una será la que responda de manera óptima y completa a la pregunta específica en el contexto dado.</li>
+                    <li>Promover el hábito de una revisión final rápida pero consciente de la coherencia entre la pregunta, el texto y la respuesta seleccionada antes de pasar al siguiente ítem.</li>
+                    <li>Reforzar la idea de que un proceso riguroso de análisis en las fases previas (especialmente el descarte fundamentado de distractores) lleva a una mayor confianza y seguridad en la elección final.</li>
+                    <li>Usar <span class="emphasis">Preguntas Orientadoras (PO)</span>:
+                        <ul>
+                            <li><em>PO Selección y Justificación:</em> "Entre las opciones que te quedan, ¿cuál tiene la evidencia más fuerte y directa en el estímulo?", "¿Puedes explicar con tus palabras por qué elegiste esta opción basándote específicamente en el texto y la pregunta?", "¿Estás seguro de que esta opción es <span class="emphasis">objetivamente mejor</span> que las otras según lo que leíste y te preguntaron, y no solo porque 'te suena' bien?".</li>
+                            <li><em>PO Cierre:</em> "¿Podrías explicarle a un compañero por qué esta es la respuesta correcta y las otras no, usando solo la información del texto y la pregunta?".</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <hr style="margin: 40px 0 30px 0; border-width: 1.5px; border-color: var(--primary-color); border-style: dashed;">
+
+        <!-- INICIO DEL CONTENIDO DE MODELADO, GUIADO E INDEPENDIENTE PARA LECTURA CRÍTICA -->
+        <!-- (Este es el contenido que ya habíamos desarrollado y validado para LC) -->
+
+        <h3>B. Aplicación Práctica de la Ruta del Lector Crítico</h3>
+        <h4>1. Modelado Docente: Aplicando la Ruta Paso a Paso</h4>
+        <p>Observemos cómo aplicar la Ruta del Lector Crítico a una pregunta real de la prueba Saber 11.</p>
+        <div class="example-question-container">
+            <h4>Pregunta Modelo (Tomada de ICFES 2024 - Pregunta 30, Sesión 1, pág. 12)</h4>
+            <div class="context-text">
+                <p><strong>Contexto (Primer Párrafo Completo del texto "Contra la censura"):</strong></p>
+                <p><em>Desde principios de la década de 1960 hasta aproximadamente 1980, la República de Sudáfrica aplicó uno de los sistemas de censura más exhaustivos del mundo. Dicho sistema trataba de controlar la propagación de signos en cualquiera de sus formas. No solo los libros, las revistas, las películas y las obras teatrales, sino también las camisetas, los llaveros, las muñecas, los juguetes y los letreros de las tiendas - en realidad, cualquier cosa portadora de un mensaje que pudiera ser "indeseable" - tenían que someterse al análisis de los censores antes de poder hacerse públicos. En la Unión Soviética había unas setenta mil personas que supervisaban las actividades de unos siete mil escritores. Sin embargo, la proporción entre censores y escritores en Sudáfrica era, en todo caso, superior a diez a uno. Los paranoicos se comportan como si el ambiente estuviera repleto de mensajes codificados. Durante décadas, el Estado sudafricano vivió inmerso en un estado de paranoia. La paranoia es la enfermedad de los gobiernos inseguros, en particular, de las dictaduras. Uno de los rasgos distintivos de las dictaduras modernas respecto a las anteriores ha sido la amplitud y la rapidez con que la paranoia puede extenderse. Pero Sudáfrica y la Unión Soviética no eran casos únicos, Reinaldo Arenas escribió sobre la existencia en Cuba de un ambiente de "amenaza oficial" que hacía del ciudadano "no solo una persona objeto de represión, sino también autorreprimida, no solo una persona censurada, sino autocensurada, no solo vigilada, sino que se vigila a sí misma".</em></p>
+            </div>
+            <span class="question-title">Pregunta 30:</span>
+            <p>Considere el siguiente fragmento del texto:</p>
+            <p><em>"No solo los libros, las revistas, las películas y las obras teatrales, sino también las camisetas, los llaveros, las muñecas, los juguetes y los letreros de las tiendas - en realidad, cualquier cosa portadora de un mensaje que pudiera ser "indeseable" - tenían que someterse al análisis de los censores antes de poder hacerse públicos".</em></p>
+            <p><strong>¿Cuál es la función que cumple este fragmento en el primer párrafo?</strong></p>
+            <ol class="options">
+                <li>A. Exponer la tesis central del texto según la cual las personas no son solo censuradas sino también autocensuradas.</li>
+                <li>B. Mostrar ejemplos para ilustrar por qué la paranoia es uno de los rasgos más distintivos de las dictaduras modernas.</li>
+                <li>C. Mostrar ejemplos que ilustren por qué el sistema de censura sudafricano fue uno de los más severos del mundo.</li>
+                <li>D. Exponer la tesis central del texto según la cual la paranoia es la enfermedad de los gobiernos inseguros.</li>
+            </ol>
+            <div class="correct-answer-box"><strong>Respuesta Correcta (según análisis previo): B</strong></div>
+            <h5 style="margin-top:15px;">Desarrollo Detallado de la Ruta (Modelado por el Facilitador):</h5>
+            <ol>
+                <li><strong>PASO 1 (Inmersión):</strong> El contexto general trata sobre censura y paranoia en dictaduras, mencionando Sudáfrica y URSS. El fragmento específico es una lista detallada de objetos cotidianos sujetos a censura. La pregunta pide la FUNCIÓN de esta lista dentro del primer párrafo.</li>
+                <li><strong>PASO 2 (Conexión):</strong> El primer párrafo introduce la idea de "paranoia" en dictaduras como la sudafricana. La habilidad lectora es identificar la función de un ejemplo dentro de un argumento más amplio. Plan: Ver cómo esta lista de ejemplos apoya o ilustra la idea de paranoia.</li>
+                <li><strong>PASO 3 (Evaluación de Opciones):</strong>
+                    <ul>
+                        <li>A: No es la tesis central, y el fragmento es sobre censura externa. DESCARTADA.</li>
+                        <li>B: La lista extensa de objetos censurables (hasta juguetes) ejemplifica la paranoia de ver "mensajes indeseables" en todo. Conecta con la idea de paranoia en dictaduras. POSIBLE.</li>
+                        <li>C: Aunque Sudáfrica se menciona, el fragmento ilustra un rasgo general de la censura paranoica, no se enfoca en probar la severidad *comparativa* de Sudáfrica solo con esta lista. DESCARTADA.</li>
+                        <li>D: El fragmento es un ejemplo, no la tesis completa sobre la paranoia. DESCARTADA.</li>
+                    </ul>
+                </li>
+                <li><strong>PASO 4 (Justificación y Selección):</strong> La opción B es la mejor. La enumeración sirve para mostrar cuán extendida y detallada era la censura, lo cual es un claro ejemplo de la paranoia que el autor describe como característica de las dictaduras modernas. La lista hace tangible y comprensible el concepto de paranoia.</li>
+            </ol>
+        </div>
+
+        <hr style="margin: 40px 0 30px 0; border-width: 1.5px; border-color: var(--primary-color); border-style: dashed;">
+        
+        <h3>C. Práctica Guiada: ¡Apliquemos la Ruta Juntos!</h3>
+        <p>Como docentes, vamos a trabajar colaborativamente en esta pregunta, siguiendo las fases de la Ruta del Lector Crítico.</p>
+        <div class="example-question-container practice-box guided-practice">
+            <h4>Pregunta Guiada (Tomada de ICFES 2024 - Pregunta 41, Sesión 1, pág. 17)</h4>
+            <div class="context-text">
+                <p><strong>Contexto (Texto completo "La utilidad de lo inútil"):</strong></p>
+                <p><em>Permítaseme detenerme un momento en una novela que ha hecho soñar a varias generaciones de lectores. Pienso en "Cien años de soledad" de Gabriel García Márquez. Quizá sea posible reencontrar en la lúcida locura de Aureliano Buendía la fecunda inutilidad de la literatura. Encerrado en su taller secreto, el coronel revolucionario fabrica pescaditos de oro a cambio de monedas de oro que después se funden para producir de nuevo otros pescaditos. Círculo vicioso que no escapa a las críticas de Úrsula, a la mirada afectuosa de la madre que se preocupa por el futuro del hijo:
+                Con su terrible sentido práctico, ella [Úrsula] no podía entender el negocio del coronel, que cambiaba los pescaditos por monedas de oro, y luego convertía las monedas de oro en pescaditos, y así sucesivamente, de modo que tenía que trabajar cada vez más a medida que más vendía, para satisfacer un círculo vicioso exasperante. En verdad lo que le interesaba a él no era el negocio sino el trabajo (p. 184).
+                Por lo demás, el coronel mismo confiesa que <<sus únicos instantes felices, desde la tarde remota en que su padre lo llevó a conocer el hielo, habían transcurrido en el taller de platería, donde se le iba el tiempo armando pescaditos de oro>>:
+                Había tenido que promover treinta y dos guerras-sigue aclarando García Márquez-, y había tenido que violar todos sus pactos con la muerte y revolcarse como un cerdo en el muladar de la gloria, para descubrir con casi cuarenta años de retraso los privilegios de la simplicidad (p. 158).
+                Es probable que el acto creativo que da vida a lo que denominamos literatura se base precisamente en esta simplicidad, motivada tan solo por un auténtico gozo y ajena a cualquier aspiración al beneficio. Un acto gratuito, exento de finalidad precisa. Capaz de eludir cualquier lógica comercial. Inútil, por lo tanto, porque no puede ser monetizado. Pero necesario para expresar con su misma existencia un valor alternativo a la supremacía de las leyes del mercado y el lucro.</em></p>
+                <p><strong>Tomado de: Ordine, N. (2013). La utilidad de lo inútil, p 30. Madrid, Acantilada.</strong></p>
+            </div>
+            <span class="question-title">Pregunta 41:</span>
+            <p><strong>La tesis central del texto se encuentra enunciada en</strong></p>
+            <ol class="options">
+               <li>A. El primer párrafo.</li>
+               <li>B. El segundo párrafo.</li>
+               <li>C. El último párrafo.</li>
+               <li>D. El penúltimo.</li>
+            </ol>
+            <div class="correct-answer-box" style="margin-top:15px; background-color:#fff9e6; border-color:#ffd566;">
+                <strong>Respuesta Correcta (A construir en grupo):</strong> [ Guía para identificar: Buscar la afirmación más general y argumentativa que el autor defiende sobre "la utilidad de lo inútil". ]
+            </div>
+            <h5 style="margin-top:15px;">Guía para Aplicar la Ruta (Discusión Docente):</h5>
+            <p class="prompt"><strong>Paso 1 (Inmersión):</strong> ¿Cuál es la tarea que pide la pregunta? (Ubicar la tesis central). ¿Cuál es el tema general del texto? (La aparente "inutilidad" de la literatura/creatividad que, sin embargo, posee un valor intrínseco).</p>
+            <p class="prompt"><strong>Paso 2 (Conexión/Plan):</strong> ¿Qué entendemos por "tesis central"? (Es la afirmación principal que el autor busca sostener y argumentar a lo largo del texto). ¿Cuál es el plan para encontrarla? (Releer cada párrafo, identificar su idea principal, y determinar cuál de esas ideas encapsula el mensaje fundamental de todo el ensayo).</p>
+            <p class="prompt"><strong>Paso 3 (Ejecutar/Evaluar - ¡A trabajar en grupo!):</strong>
+                <br>Lean y discutan el contenido de cada párrafo:
+                <ul>
+                    <li>Párrafo 1: Introduce el tema de la "inutilidad de la literatura" a través de Aureliano Buendía.</li>
+                    <li>Párrafo 2: Perspectiva pragmática de Úrsula.</li>
+                    <li>Párrafo 3: Perspectiva del Coronel sobre la simplicidad y el gozo en el "hacer".</li>
+                    <li>Párrafo 4 (Penúltimo): ¿Qué idea general presenta este párrafo sobre el acto creativo, la literatura, su aparente inutilidad pero su necesidad como valor alternativo? ¿Podría ser esta la tesis?</li>
+                    <li>Párrafo 5 (Último): Es la referencia bibliográfica.</li>
+                </ul>
+                Ahora, analicen las opciones A, B, C, D. ¿En cuál de los párrafos (primero, segundo, penúltimo, último) se enuncia de forma más clara y global la idea principal que el autor quiere defender sobre la "utilidad de lo inútil"?
+            </p>
+            <p class="prompt"><strong>Paso 4 (Asegurar/Elegir):</strong> ¿Cuál opción identifica el párrafo que contiene la tesis que engloba y da sentido al ejemplo de Aureliano y a las reflexiones sobre el acto creativo? ¡Justifiquen su elección como grupo!</p>
+        </div>
+
+        <hr style="margin: 40px 0 30px 0; border-width: 1.5px; border-color: var(--primary-color); border-style: dashed;">
+
+        <h3>D. Práctica Independiente: Desafío para los Docentes</h3>
+        <p>Como ejercicio final para este módulo, apliquen individualmente o en pequeños grupos la Ruta del Lector Crítico completa para resolver la siguiente pregunta. Luego, pueden discutir sus procesos y respuestas.</p>
+        <div class="example-question-container practice-box independent-practice">
+            <h4>Pregunta Independiente (Tomada de ICFES 2024 - Pregunta 54, Sesión 1, pág. 22)</h4>
+            <div class="context-text">
+                <p><strong>Contexto (Texto completo "Feminismo Light"):</strong></p>
+                <p><em>Cuidado con lo que yo llamo feminismo <strong>Light</strong>. Es la idea de la igualdad femenina condicional. Recházala de plano, por favor. Es una idea vacua, fallida y tranquilizadora. Ser feminista es como estar embarazada. Lo estás o no lo estás. O crees en la plena igualdad entre hombres y mujeres o no. El feminismo <strong>Light</strong> emplea analogías como "él es la cabeza y tú el cuello". O "él conduce, pero tú viajas en el asiento delantero". Aún más preocupante es que dentro del feminismo <strong>Light</strong> está la idea de que los hombres son superiores por naturaleza, pero deben "tratar bien" a las mujeres. No. No. No.
+                El bienestar de una mujer debe basarse en algo más que la benevolencia masculina. El feminismo <strong>Light</strong> recurre al lenguaje de la "permisión". Theresa May es la primera ministra británica y un diario progresista de su país describía así a su marido: "Philip May es conocido en la política por ser un hombre que ha dado un paso atrás para permitir que sea su mujer, Theresa, quien brille". Permitir. Démoste la vuelta. Theresa May ha permitido a su marido brillar ¿Tiene sentido? Si, Philip May fuera primer ministro quizá oiríamos que su esposa le ha "apoyado desde un segundo plano o que está "detrás de él" o "a su lado". Pero jamás que le ha <<permitido>> brillar [...] La triste verdad es que nuestro mundo está repleto de hombres y mujeres a quienes les gustan las mujeres poderosas. Nos han condicionado tanto con que el poder es masculino, que una mujer poderosa nos parece una aberración. Y como tal la vigilan. De una mujer poderosa nos preguntamos: ¿Es humilde? ¿Sonríe? ¿Es lo bastante agradecida? ¿Tiene también su lado doméstico? Preguntas que no nos planteamos de los hombres poderosos, lo cual prueba que no nos incomoda el poder en sí, sino las mujeres. Juzgamos más duramente a las mujeres poderosas que a los hombres poderosos. Y el feminismo <strong>Light</strong> lo hace posible.</em></p>
+                <p><strong>Ngozi Adichie, Ch. (2017). Querida Ijeawele. Cómo educar en el feminismo. Colombia: Literatura Random House</strong></p>
+            </div>
+            <span class="question-title">Pregunta 54:</span>
+            <p><strong>El enunciado "ser feminista es como estar embarazada" quiere decir que</strong></p>
+            <ol class="options">
+                <li>A. No hay un término medio entre ser o no ser feminista.</li>
+                <li>B. Las mujeres embarazadas pueden ser feministas.</li>
+                <li>C. Ser feminista implica estar en posición embarazosa.</li>
+                <li>D. Una mujer feminista solo si está embarazada.</li>
+            </ol>
+            <p class="prompt" style="font-weight:600; color:var(--brand-dark-blue);"><strong>¡Su Desafío!</strong> Apliquen los 4 pasos de la Ruta del Lector Crítico. El texto critica el "feminismo Light" y usa la analogía del embarazo. ¿Cuál es el punto de esa comparación según la autora? ¿Qué quiere decir sobre la naturaleza del feminismo "auténtico" en contraste con el "Light"?</p>
+            <!-- No se muestra la respuesta correcta aquí -->
+        </div>
+
+        <div class="nav-buttons-container">
+            <a href="pagina_ruta_modelado.html" class="nav-button prev-button">← Módulo Anterior</a>
+            <a href="area_matematicas.html" class="nav-button next-button">Siguiente Área: Matemáticas →</a>
+        </div>
+    </main>
+
+    <footer id="main-footer">
+        <div class="footer-logo-placeholder">(LOGO Grupo Edúcate)</div>
+        <p><strong>Autor:</strong> Marlon Galvis Villa - Director de Pedagogía, Grupo Edúcate Colombia.</p>
+        <p>Taller Práctico Lectura Crítica - Taller Docente Saber 11.</p>
+    </footer>
+</body>
+</html>
